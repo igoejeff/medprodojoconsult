@@ -1908,6 +1908,70 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   background: #060606;
   color: var(--white);
 }
+
+/* ── Blog/resource pages use .footer-inner + .footer-col ── */
+.footer-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 28px;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: 48px;
+  padding-top: 64px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.footer-col { display: flex; flex-direction: column; gap: 12px; }
+.footer-col-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 4px;
+}
+.footer-col-title.text-red { color: var(--red); }
+.footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.footer-col ul li a {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-col ul li a:hover { color: #fff; }
+.footer-col .social-links { display: flex; gap: 10px; }
+.footer-col .social-links a {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex; align-items: center; justify-content:center;
+  color: rgba(255,255,255,0.5); font-size: 13px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.footer-col .social-links a:hover { background: var(--red); color: #fff; border-color: var(--red); }
+.footer-bottom {
+  text-align: center;
+  padding: 20px 28px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.2);
+}
+
+@media (max-width: 860px) {
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+}
+@media (max-width: 520px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding-top: 40px;
+    padding-bottom: 32px;
+  }
+}
+
 .footer-top {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1.4fr;
@@ -3247,4 +3311,118 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   .spb-handle { display: none; }
   .imagine-grid { grid-template-columns: 1fr; }
   .who-body { padding: 40px 24px; }
+}
+
+/* ─── COMPREHENSIVE MOBILE FIXES ─────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* ── Nav actions: hide Book a Call on small screens, keep burger ── */
+  .nav-actions .btn-outline { display: none; }
+  .nav-actions .btn-primary { display: none; }
+  .nav-actions { gap: 8px; }
+
+  /* ── GSD Diagram: hide SVG lines, stack cards ── */
+  .gsd-diagram {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 16px;
+  }
+  .gsd-lines { display: none; }
+  .gsd-hub {
+    position: static;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 8px;
+  }
+  .gsd-card {
+    position: static;
+    width: 100%;
+    max-width: 360px;
+  }
+
+  /* ── Hero sections: reduce padding and font ── */
+  .post-hero { padding-top: 100px; }
+  .blog-hero { padding: 100px 0 60px; }
+  .post-hero-img { max-height: 240px; }
+
+  /* ── Blog grid: single column ── */
+  .blog-grid { grid-template-columns: 1fr; }
+  .blog-card-featured {
+    grid-template-columns: 1fr;
+  }
+  .blog-card-featured .bc-img { height: 220px; }
+  .blog-card-featured .bc-img::after {
+    background: linear-gradient(to bottom, transparent 60%, #131313 100%);
+  }
+  .blog-card-featured .bc-body { padding: 28px 24px; }
+  .related-grid { grid-template-columns: 1fr; }
+
+  /* ── Post article: tighten up ── */
+  .post-compare { grid-template-columns: 1fr; }
+  .role-grid { grid-template-columns: 1fr; }
+  .script-steps { gap: 0; }
+  .post-body { font-size: 15px; }
+
+  /* ── Resources page ── */
+  .res-grid { grid-template-columns: 1fr; }
+  .res-insights-grid { grid-template-columns: 1fr; }
+
+  /* ── Programs page ── */
+  .sig-grid { grid-template-columns: 1fr; }
+  .cdc-grid { grid-template-columns: 1fr; }
+
+  /* ── Section padding tightening ── */
+  .res-library { padding: 60px 0; }
+  .res-insights { padding: 60px 0; }
+  .res-cta { padding: 60px 0; }
+  .blog-section { padding: 48px 0 72px; }
+  .post-layout { padding: 0 0 72px; }
+  .post-footer-related { padding: 52px 0 72px; }
+
+  /* ── Announcement bar wrapping ── */
+  .announcement-inner { font-size: 11px; padding: 0 12px; }
+  .announcement-bar { min-height: 36px; }
+
+  /* ── Container padding ── */
+  .container { padding: 0 18px; }
+  .post-inner { padding: 0 18px; }
+  .post-hero-inner { padding: 0 18px; }
+
+  /* ── Filter tabs scroll ── */
+  .blog-filters { top: 62px; }
+  .bf-tab { padding: 14px 14px; font-size: 12px; }
+}
+
+@media (max-width: 480px) {
+  /* ── Nav: only show burger on tiny phones ── */
+  .nav-actions .btn-outline { display: none; }
+  .nav-actions .btn-primary { display: none; }
+
+  /* ── Hero H1 tighten ── */
+  .blog-hero h1 { font-size: 2rem; }
+  .post-hero-inner h1 { font-size: 1.8rem; }
+
+  /* ── Cards full width ── */
+  .blog-card { border-radius: 16px; }
+  .bc-body { padding: 20px 18px 22px; }
+  .bc-body h2 { font-size: 16px; }
+
+  /* ── Post steps ── */
+  .post-step { gap: 12px; }
+  .post-step-num { width: 30px; height: 30px; font-size: 12px; }
+
+  /* ── Footer inner stack ── */
+  .footer-inner {
+    grid-template-columns: 1fr;
+    padding-top: 36px;
+    padding-bottom: 28px;
+  }
+
+  /* ── Natasha section tighten ── */
+  .natasha-hero-row { gap: 28px; }
+  .natasha-creds { flex-wrap: wrap; gap: 6px; }
 }

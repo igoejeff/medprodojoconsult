@@ -12,7 +12,7 @@
   <nav class="navbar" id="navbar">
     <div class="nav-wrap">
       <a href="index.html" class="nav-logo"><img src="images/logo-official.png" alt="Med Pro Dojo" class="logo-img-nav" /></a>
-      <div class="nav-links" id="navLinks"><a href="index.html" class="nav-link">Home</a><a href="about.html" class="nav-link active">About</a><a href="programs.html" class="nav-link">Programs</a><a href="events.html" class="nav-link">Events</a><a href="testimonials.html" class="nav-link">Testimonials</a><a href="resources.html" class="nav-link">Resources</a><a href="vendors.html" class="nav-link">Vendors</a><a href="contact.html" class="nav-link">Contact</a></div>
+      <div class="nav-links" id="navLinks"><a href="index.html" class="nav-link">Home</a><a href="about.html" class="nav-link active">About</a><a href="programs.html" class="nav-link">Programs</a><a href="events.html" class="nav-link">Events</a><a href="testimonials.html" class="nav-link">Testimonials</a><a href="resources.html" class="nav-link">Resources</a><a href="vendors.html" class="nav-link">Vendors</a><a href="blog.html" class="nav-link">Blog</a><a href="contact.html" class="nav-link">Contact</a></div>
       <div class="nav-ctas"><a href="contact.html" class="nav-btn-ghost">Book a Call</a><a href="#" class="nav-btn-red">Member Login</a><button class="burger" id="burger"><span></span><span></span><span></span></button></div>
     </div>
   </nav>
@@ -227,15 +227,15 @@
       border: 2px solid rgba(232,40,28,0.25);
       box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
     }
-    /* Show only the top-right quadrant of the 2×2 grid image */
+    /* Single headshot — fill the frame naturally */
     .natasha-photo {
       position: absolute;
-      width: 200%;       /* full image = 2× the frame width  */
-      height: 200%;      /* full image = 2× the frame height */
+      width: 100%;
+      height: 100%;
       top: 0;
-      left: -100%;       /* shift left to reveal right half  */
+      left: 0;
       object-fit: cover;
-      object-position: top center;
+      object-position: center top;
       display: block;
     }
     .natasha-photo-glow {
@@ -490,6 +490,18 @@
       .natasha-expertise-row { grid-template-columns: 1fr; }
       .natasha-stat { flex: 0 0 100%; }
       .natasha-team-placeholder { padding: 36px 20px; }
+      .natasha-photo-frame {
+        width: 100%;
+        max-width: 320px;
+        height: 340px;
+        margin: 0 auto;
+      }
+      .natasha-photo {
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+      }
     }
   </style>
   <footer class="footer"><div class="footer-top container"><div class="footer-brand-col"><div class="footer-logo"><img src="images/logo-white-official.png" alt="Med Pro Dojo" class="logo-img-footer" /></div><p class="footer-brand-p">Helping practices build systems that scale.</p><div class="social-row"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-youtube"></i></a></div></div><div class="footer-nav-col"><p class="footer-col-label">Navigation</p><ul><li><a href="about.html">About</a></li><li><a href="programs.html">Programs</a></li><li><a href="events.html">Events</a></li><li><a href="testimonials.html">Testimonials</a></li><li><a href="contact.html">Contact</a></li></ul></div><div class="footer-nav-col"><p class="footer-col-label">Programs</p><ul><li><a href="programs.html">Team Dojo</a></li><li><a href="programs.html">Niche Courses</a></li><li><a href="programs.html">Online Courses</a></li></ul></div><div class="footer-nav-col"><p class="footer-col-label">Contact</p><ul><li><a href="tel:8336780800">(833) 678-0800</a></li><li><a href="mailto:info@medprodojo.com">info@medprodojo.com</a></li></ul></div></div><div class="footer-bottom"><p>&copy; 2026 Med Pro Dojo. All Rights Reserved.</p></div></footer>
