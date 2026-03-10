@@ -827,7 +827,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
     0 0 0 8px rgba(232,40,28,0.15),
     0 0 50px rgba(232,40,28,0.65),
     0 0 100px rgba(232,40,28,0.3);
-  background: #ffffff;
+  background: #0d0d0d;
   overflow: hidden;
 }
 .gsd-hub-inner {
@@ -3377,6 +3377,14 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
     height: 100px;
     margin: 0 auto 8px;
   }
+  .gsd-hub-ring { background: #0d0d0d; }
+  .gsd-hub-logo {
+    width: 70px;
+    height: 70px;
+    mix-blend-mode: normal;
+    filter: brightness(0) invert(1);
+    -webkit-filter: brightness(0) invert(1);
+  }
   .gsd-card {
     position: static;
     width: 100%;
@@ -3464,4 +3472,16 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   /* ── Natasha section tighten ── */
   .natasha-hero-row { gap: 28px; }
   .natasha-creds { flex-wrap: wrap; gap: 6px; }
+  /* Force photo frame to never overflow viewport */
+  .natasha-photo-frame {
+    max-width: calc(100vw - 40px) !important;
+    height: 280px !important;
+    margin: 0 auto !important;
+    border-radius: 16px !important;
+  }
+  .natasha-photo-wrap {
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+  }
 }

@@ -479,7 +479,9 @@
       }
       .natasha-photo-frame {
         width: 100%;
-        height: 360px;
+        max-width: 400px;
+        height: 380px;
+        margin: 0 auto;
       }
       .natasha-expertise-row { grid-template-columns: 1fr 1fr; }
       .natasha-stats-row { flex-wrap: wrap; gap: 28px; padding: 32px 24px; }
@@ -487,20 +489,30 @@
       .natasha-stat { flex: 0 0 calc(50% - 14px); }
     }
     @media (max-width: 580px) {
+      .natasha-section { padding: 60px 0 50px; overflow: visible; }
+      .natasha-intro-label { margin-bottom: 36px; }
       .natasha-expertise-row { grid-template-columns: 1fr; }
       .natasha-stat { flex: 0 0 100%; }
       .natasha-team-placeholder { padding: 36px 20px; }
+      .natasha-photo-wrap { width: 100%; padding: 0 20px; box-sizing: border-box; }
       .natasha-photo-frame {
-        width: 100%;
-        max-width: 320px;
-        height: 340px;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 280px !important;
         margin: 0 auto;
+        border-radius: 16px;
       }
       .natasha-photo {
-        width: 100%;
-        height: 100%;
-        left: 0;
-        top: 0;
+        position: absolute;
+        width: 100% !important;
+        height: 100% !important;
+        left: 0 !important;
+        top: 0 !important;
+        object-fit: cover;
+        object-position: center top;
+      }
+      .natasha-hero-row {
+        gap: 28px;
       }
     }
   </style>
