@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Med Pro Dojo</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css" />
+</head>
+<body>
+  <div class="announce-bar" id="announceBar"><div class="announce-inner"><span class="announce-dot"></span><a href="events.html">→ PEPTIDES UNLOCKED — LIVE ROUNDTABLE: MAR 25, 2026</a></div><button class="announce-close" id="announceClose">✕</button></div>
+  <nav class="navbar" id="navbar">
+    <div class="nav-wrap">
+      <a href="index.html" class="nav-logo"><img src="images/logo-official.png" alt="Med Pro Dojo" class="logo-img-nav" /></a>
+      <div class="nav-links" id="navLinks"><a href="index.html" class="nav-link">Home</a><a href="about.html" class="nav-link">About</a><a href="programs.html" class="nav-link">Programs</a><a href="events.html" class="nav-link">Events</a><a href="testimonials.html" class="nav-link">Testimonials</a><a href="resources.html" class="nav-link">Resources</a><a href="vendors.html" class="nav-link">Vendors</a><a href="contact.html" class="nav-link active">Contact</a></div>
+      <div class="nav-ctas"><a href="contact.html" class="nav-btn-ghost">Book a Call</a><a href="#" class="nav-btn-red">Member Login</a><button class="burger" id="burger"><span></span><span></span><span></span></button></div>
+    </div>
+  </nav>
+  <section class="page-hero"><div class="page-hero-bg"><img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1600&q=70&auto=format&fit=crop" alt="" /><div class="page-hero-bg-tint"></div></div><div class="container page-hero-body"><div class="section-label">Get in Touch</div><h1>Let's Talk Strategy</h1><p>Book your free 30-minute Practice Strategy Call — we'll map a clear path forward for your practice.</p></div></section>
+
+  <section class="section-light" id="strategy-call" style="padding:100px 0"><div class="container">
+    <div class="contact-grid">
+      <div>
+        <div class="contact-info-card reveal">
+          <h3>We're Here to Help</h3>
+          <div class="contact-detail"><div class="contact-detail-icon"><i class="fas fa-phone"></i></div><div class="contact-detail-text"><strong>Phone / Text</strong><a href="tel:8336780800">(833) 678-0800</a></div></div>
+          <div class="contact-detail"><div class="contact-detail-icon"><i class="fas fa-envelope"></i></div><div class="contact-detail-text"><strong>Email</strong><a href="mailto:info@medprodojo.com">info@medprodojo.com</a></div></div>
+          <div class="contact-detail"><div class="contact-detail-icon"><i class="fas fa-globe"></i></div><div class="contact-detail-text"><strong>Website</strong><span>medprodojo.com</span></div></div>
+          <div style="margin-top:32px;padding-top:32px;border-top:1px solid rgba(255,255,255,0.08)"><p style="font-size:12px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.1em;font-weight:700;margin-bottom:16px">Follow Us</p><div class="social-row"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-youtube"></i></a></div></div>
+        </div>
+        <div style="margin-top:20px;background:var(--white);border-radius:24px;padding:32px;border:1.5px solid var(--gray-2)" class="reveal">
+          <p style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--gray-4);margin-bottom:16px">On your strategy call:</p>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;align-items:center;gap:12px;font-size:14px;color:var(--dark)"><i class="fas fa-check-circle" style="color:var(--red);flex-shrink:0"></i>Your biggest growth constraint</div>
+            <div style="display:flex;align-items:center;gap:12px;font-size:14px;color:var(--dark)"><i class="fas fa-check-circle" style="color:var(--red);flex-shrink:0"></i>Missed revenue opportunities</div>
+            <div style="display:flex;align-items:center;gap:12px;font-size:14px;color:var(--dark)"><i class="fas fa-check-circle" style="color:var(--red);flex-shrink:0"></i>The fastest path to scalable growth</div>
+            <div style="display:flex;align-items:center;gap:12px;font-size:14px;color:var(--dark)"><i class="fas fa-check-circle" style="color:var(--red);flex-shrink:0"></i>Which programs are the best fit</div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form-card reveal" style="--delay:.1s">
+        <h3>Book Your Free Strategy Call</h3>
+        <form onsubmit="handleContactForm(event)">
+          <div class="cf-row">
+            <div class="cf-group"><label>First Name <span style="color:var(--red)">*</span></label><input type="text" placeholder="First name" required /></div>
+            <div class="cf-group"><label>Last Name <span style="color:var(--red)">*</span></label><input type="text" placeholder="Last name" required /></div>
+          </div>
+          <div class="cf-group"><label>Email <span style="color:var(--red)">*</span></label><input type="email" placeholder="your@email.com" required /></div>
+          <div class="cf-group"><label>Cell Phone</label><input type="tel" placeholder="(000) 000-0000" /></div>
+          <div class="cf-group"><label>Practice Type</label><select><option value="">Select your practice type...</option><option>Chiropractic</option><option>Medical / Integrated</option><option>Wellness / Spa</option><option>Physical Therapy</option><option>Other</option></select></div>
+          <div class="cf-group"><label>Biggest challenge right now?</label><textarea placeholder="Tell us what's holding your practice back..."></textarea></div>
+          <button type="submit" class="btn-primary-lg" style="width:100%;justify-content:center;border:none;font-size:15px;padding:18px">Book My Free Strategy Call <i class="fas fa-arrow-right"></i></button>
+          <p style="font-size:12px;color:var(--gray-4);text-align:center;margin-top:12px">No spam. No pressure. Just strategy.</p>
+        </form>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="cta-band"><div class="container cta-band-inner"><div><h2 class="cta-band-h2">Questions? Call or Text Us.</h2><p class="cta-band-p">Our team is ready to answer questions about programs, pricing, or what's right for your practice.</p></div><a href="tel:8336780800" class="cta-band-btn"><i class="fas fa-phone"></i> (833) 678-0800</a></div></section>
+  <footer class="footer"><div class="footer-top container"><div class="footer-brand-col"><div class="footer-logo"><img src="images/logo-white-official.png" alt="Med Pro Dojo" class="logo-img-footer" /></div><p class="footer-brand-p">Helping practices build systems that scale.</p><div class="social-row"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-youtube"></i></a></div></div><div class="footer-nav-col"><p class="footer-col-label">Navigation</p><ul><li><a href="about.html">About</a></li><li><a href="programs.html">Programs</a></li><li><a href="events.html">Events</a></li><li><a href="testimonials.html">Testimonials</a></li><li><a href="contact.html">Contact</a></li></ul></div><div class="footer-nav-col"><p class="footer-col-label">Programs</p><ul><li><a href="programs.html">Team Dojo</a></li><li><a href="programs.html">Niche Courses</a></li><li><a href="programs.html">Online Courses</a></li></ul></div><div class="footer-nav-col"><p class="footer-col-label">Contact</p><ul><li><a href="tel:8336780800">(833) 678-0800</a></li><li><a href="mailto:info@medprodojo.com">info@medprodojo.com</a></li></ul></div></div><div class="footer-bottom"><p>&copy; 2026 Med Pro Dojo. All Rights Reserved.</p></div></footer>
+  <div class="toast" id="toast"></div>
+  <script src="js/main.js"></script>
+  <script>function handleContactForm(e){e.preventDefault();const f=e.target.querySelector('input[type="text"]').value;showToast('Thank you, '+f+'! We\'ll be in touch within 24 hours. ✓');e.target.reset();}</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 300" fill="none">
+  <defs>
+    <clipPath id="circleClip">
+      <circle cx="130" cy="118" r="100" />
+    </clipPath>
+    <clipPath id="topHalf">
+      <rect x="0" y="0" width="340" height="118" />
+    </clipPath>
+    <clipPath id="bottomHalf">
+      <rect x="0" y="118" width="340" height="182" />
+    </clipPath>
+  </defs>
+
+  <!-- RED top half of circle -->
+  <circle cx="130" cy="118" r="100" fill="#C41F14" clip-path="url(#topHalf)" />
+
+  <!-- DARK charcoal bottom half of circle -->
+  <circle cx="130" cy="118" r="100" fill="#2D2D2D" clip-path="url(#bottomHalf)" />
+
+  <!-- DARK mountain/chart shape layered over red top — creates the "peaks" look -->
+  <polygon
+    points="30,178  76,104  108,136  150,68  196,122  230,118  230,220  30,220"
+    fill="#2D2D2D"
+    clip-path="url(#circleClip)"
+  />
+
+  <!-- WHITE diagonal lightning slash — the hero element cutting top-right -->
+  <polygon
+    points="148,50  170,50  112,152  90,152"
+    fill="white"
+    clip-path="url(#circleClip)"
+  />
+
+  <!-- RED arrow tip (top right of slash) -->
+  <polygon
+    points="158,32  186,32  186,60  170,50  148,50"
+    fill="#C41F14"
+    clip-path="url(#circleClip)"
+  />
+
+  <!-- Thin white trailing slash below (echo line) -->
+  <polygon
+    points="88,154  100,154  68,200  56,200"
+    fill="white"
+    opacity="0.5"
+    clip-path="url(#circleClip)"
+  />
+
+  <!-- MED PRO DOJO text -->
+  <text
+    x="170"
+    y="260"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="30"
+    font-weight="700"
+    fill="#C41F14"
+    text-anchor="middle"
+    letter-spacing="6"
+  >MED PRO DOJO</text>
+</svg>

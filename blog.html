@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Med Pro Dojo</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <style>
+    :root { --red:#E8281C; }
+
+    /* ── HERO ── */
+    .blog-hero {
+      position: relative;
+      background: linear-gradient(135deg, #0a0a0a 0%, #111 60%, #0a0a0a 100%);
+      padding: 140px 0 80px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .blog-hero::before {
+      content:'';
+      position:absolute; inset:0;
+      background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(232,40,28,0.13) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .blog-hero-pill {
+      display: inline-block;
+      background: rgba(232,40,28,0.12);
+      border: 1px solid rgba(232,40,28,0.35);
+      color: var(--red);
+      font-size: 11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+      padding: 6px 18px; border-radius:100px; margin-bottom:20px;
+    }
+    .blog-hero h1 {
+      font-size: clamp(2.4rem,5vw,3.8rem);
+      font-weight:900; color:#fff; letter-spacing:-.03em; line-height:1.1; margin-bottom:16px;
+    }
+    .blog-hero h1 span { color:var(--red); }
+    .blog-hero p {
+      font-size:17px; color:rgba(255,255,255,.5);
+      max-width:520px; margin:0 auto; line-height:1.7;
+    }
+
+    /* ── FILTER TABS ── */
+    .blog-filters {
+      background:#0f0f0f;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      padding: 0;
+      position: sticky;
+      top: 70px;
+      z-index: 50;
+    }
+    .blog-filters-inner {
+      max-width:1160px; margin:0 auto; padding:0 28px;
+      display:flex; gap:4px; align-items:center; overflow-x:auto;
+      scrollbar-width:none;
+    }
+    .blog-filters-inner::-webkit-scrollbar { display:none; }
+    .bf-tab {
+      flex-shrink:0;
+      padding: 16px 18px;
+      font-size:13px; font-weight:600; color:rgba(255,255,255,.45);
+      border:none; background:transparent; cursor:pointer;
+      border-bottom: 2px solid transparent;
+      transition: color .2s, border-color .2s;
+      white-space:nowrap;
+    }
+    .bf-tab:hover { color:rgba(255,255,255,.8); }
+    .bf-tab.active { color:#fff; border-bottom-color:var(--red); }
+
+    /* ── BLOG GRID ── */
+    .blog-section {
+      background:#080808;
+      padding: 70px 0 100px;
+    }
+    .blog-grid {
+      display:grid;
+      grid-template-columns: repeat(3,1fr);
+      gap:28px;
+    }
+
+    /* ── FEATURED POST (spans full width) ── */
+    .blog-card-featured {
+      grid-column: 1 / -1;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      background:#131313;
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:22px;
+      overflow:hidden;
+      transition: transform .28s, box-shadow .28s;
+    }
+    .blog-card-featured:hover {
+      transform:translateY(-5px);
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+    }
+    .blog-card-featured .bc-img {
+      height:380px;
+      background-size:cover; background-position:center;
+      position:relative;
+    }
+    .blog-card-featured .bc-img::after {
+      content:''; position:absolute; inset:0;
+      background: linear-gradient(to right, transparent 60%, #131313 100%);
+    }
+    .blog-card-featured .bc-body {
+      padding:48px 44px;
+      display:flex; flex-direction:column; justify-content:center;
+    }
+
+    /* ── REGULAR CARD ── */
+    .blog-card {
+      background:#131313;
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:22px;
+      overflow:hidden;
+      display:flex; flex-direction:column;
+      transition: transform .28s, box-shadow .28s, border-color .28s;
+    }
+    .blog-card:hover {
+      transform:translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+      border-color: rgba(232,40,28,.25);
+    }
+    .bc-img {
+      height:210px;
+      background-size:cover; background-position:center;
+      position:relative; flex-shrink:0;
+    }
+    .bc-img::after {
+      content:''; position:absolute; inset:0;
+      background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,.3) 100%);
+    }
+    .bc-cats {
+      position:absolute; top:14px; left:14px; z-index:2;
+      display:flex; flex-wrap:wrap; gap:6px;
+    }
+    .bc-cat {
+      display:inline-block;
+      background:var(--red); color:#fff;
+      font-size:9px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+      padding:4px 10px; border-radius:100px;
+    }
+    .bc-cat.alt { background:rgba(255,255,255,.15); backdrop-filter:blur(4px); }
+    .bc-body {
+      padding:26px 24px 28px;
+      display:flex; flex-direction:column; flex-grow:1;
+    }
+    .bc-meta {
+      display:flex; align-items:center; gap:10px;
+      font-size:11px; color:rgba(255,255,255,.35); margin-bottom:10px;
+    }
+    .bc-meta-dot { width:3px; height:3px; border-radius:50%; background:rgba(255,255,255,.2); }
+    .bc-body h2 {
+      font-size:18px; font-weight:800; color:#fff; line-height:1.3;
+      margin-bottom:10px; text-decoration:none;
+    }
+    .blog-card-featured .bc-body h2 { font-size:26px; margin-bottom:14px; }
+    .bc-body p {
+      font-size:14px; color:rgba(255,255,255,.48); line-height:1.68;
+      flex-grow:1; margin-bottom:22px;
+    }
+    .bc-tags {
+      display:flex; flex-wrap:wrap; gap:6px; margin-bottom:20px;
+    }
+    .bc-tag {
+      display:inline-block;
+      background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.09);
+      color:rgba(255,255,255,.5); font-size:10px; font-weight:600; letter-spacing:.04em;
+      text-transform:uppercase; padding:4px 10px; border-radius:100px;
+    }
+    .bc-read {
+      display:inline-flex; align-items:center; gap:8px;
+      color:var(--red); font-size:13px; font-weight:700; text-decoration:none;
+      transition: gap .2s;
+    }
+    .bc-read:hover { gap:12px; }
+    .bc-read i { font-size:11px; }
+
+    /* ── PLACEHOLDER CARDS ── */
+    .blog-card-placeholder {
+      background:#0e0e0e;
+      border: 1.5px dashed rgba(255,255,255,.08);
+      border-radius:22px;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      text-align:center;
+      padding:48px 32px;
+      min-height:300px;
+    }
+    .bcp-icon {
+      width:52px; height:52px; border-radius:14px;
+      background:rgba(232,40,28,.08); border:1.5px solid rgba(232,40,28,.2);
+      display:flex; align-items:center; justify-content:center;
+      font-size:20px; color:var(--red); margin-bottom:16px;
+    }
+    .blog-card-placeholder h4 { font-size:15px; font-weight:700; color:#fff; margin-bottom:8px; }
+    .blog-card-placeholder p  { font-size:13px; color:rgba(255,255,255,.3); line-height:1.6; }
+
+    /* ── CTA STRIP ── */
+    .blog-cta {
+      background: linear-gradient(135deg,#0d0d0d,#1a0303,#0d0d0d);
+      border-top:1px solid rgba(232,40,28,.2);
+      padding:90px 0; text-align:center;
+    }
+    .blog-cta h2 { font-size:clamp(1.8rem,3.5vw,2.6rem); font-weight:800; color:#fff; letter-spacing:-.025em; margin-bottom:14px; }
+    .blog-cta p  { font-size:16px; color:rgba(255,255,255,.5); max-width:480px; margin:0 auto 36px; line-height:1.7; }
+    .blog-cta a  {
+      display:inline-flex; align-items:center; gap:10px;
+      background:var(--red); color:#fff; font-size:13px; font-weight:800;
+      letter-spacing:.08em; text-transform:uppercase;
+      padding:15px 34px; border-radius:8px; text-decoration:none;
+      transition: background .2s, transform .2s;
+    }
+    .blog-cta a:hover { background:#c41c12; transform:translateY(-2px); }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:960px) {
+      .blog-grid { grid-template-columns:1fr 1fr; }
+      .blog-card-featured { grid-template-columns:1fr; }
+      .blog-card-featured .bc-img { height:260px; }
+      .blog-card-featured .bc-img::after { background: linear-gradient(to bottom, transparent 60%, #131313 100%); }
+      .blog-card-featured .bc-body { padding:32px 28px; }
+    }
+    @media(max-width:640px) {
+      .blog-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announcement-bar" id="announcementBar">
+    <div class="announcement-inner">
+      <span class="announcement-arrow">→</span>
+      <a href="https://peptidesunlocked.eventbrite.com" target="_blank">
+        ELEVATE YOUR 2026 IMPACT: ROUNDTABLE TALK: PEPTIDES UNLOCKED THIS MAR 25.
+      </a>
+    </div>
+    <button class="announcement-close">✕</button>
+  </div>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="images/logo-official.png" alt="Med Pro Dojo" class="logo-img-nav" />
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link">HOME</a>
+        <a href="about.html" class="nav-link">ABOUT</a>
+        <a href="programs.html" class="nav-link">PROGRAMS</a>
+        <a href="events.html" class="nav-link">EVENTS</a>
+        <a href="testimonials.html" class="nav-link">TESTIMONIALS</a>
+        <a href="resources.html" class="nav-link">RESOURCES</a>
+        <a href="vendors.html" class="nav-link">VENDORS</a>
+        <a href="contact.html" class="nav-link">CONTACT</a>
+      </div>
+      <div class="nav-actions">
+        <a href="contact.html#strategy-call" class="btn btn-outline">BOOK A STRATEGY CALL</a>
+        <a href="#" class="btn btn-primary">MEMBER LOGIN</a>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="blog-hero">
+    <div class="container">
+      <div class="blog-hero-pill">Practice Insights</div>
+      <h1>The Med Pro Dojo <span>Blog</span></h1>
+      <p>Tactical leadership, team culture, and growth strategies from 20+ years of chiropractic and medical practice experience.</p>
+    </div>
+  </section>
+
+  <!-- FILTER TABS -->
+  <div class="blog-filters">
+    <div class="blog-filters-inner">
+      <button class="bf-tab active" data-filter="all">All Posts</button>
+      <button class="bf-tab" data-filter="leadership">Leadership</button>
+      <button class="bf-tab" data-filter="team">Team Development</button>
+      <button class="bf-tab" data-filter="sales">Sales &amp; Marketing</button>
+      <button class="bf-tab" data-filter="systems">Practice Systems</button>
+      <button class="bf-tab" data-filter="culture">Workplace Culture</button>
+    </div>
+  </div>
+
+  <!-- BLOG GRID -->
+  <section class="blog-section">
+    <div class="container">
+      <div class="blog-grid" id="blogGrid">
+
+        <!-- ★ FEATURED POST -->
+        <a href="blog-post.html?post=handing-them-a-manual" class="blog-card-featured" data-cats="leadership team culture">
+          <div class="bc-img" style="background-image:url('images/blog-grind-is-real.jpg')">
+            <div class="bc-cats">
+              <span class="bc-cat">Featured</span>
+              <span class="bc-cat alt">Leadership</span>
+              <span class="bc-cat alt">Team Development</span>
+            </div>
+          </div>
+          <div class="bc-body">
+            <div class="bc-meta">
+              <span>Feb 16, 2026</span>
+              <span class="bc-meta-dot"></span>
+              <span>4 min read</span>
+              <span class="bc-meta-dot"></span>
+              <span>Natasha Saavedra</span>
+            </div>
+            <h2>Handing Them a Manual Isn't Leadership</h2>
+            <p>Why Most Healthcare New Hires Fail — And What Strong Leaders Do Differently. Most new hires aren't failing the job. They're failing the gap between training and ownership. And that gap is created by leadership — not the workforce.</p>
+            <div class="bc-tags">
+              <span class="bc-tag">Leadership</span>
+              <span class="bc-tag">Workplace Culture</span>
+              <span class="bc-tag">Team Development</span>
+              <span class="bc-tag">Training</span>
+            </div>
+            <span class="bc-read">Read Full Article <i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <!-- POST 2 — Table Talk (LIVE) -->
+        <a href="blog-post.html?post=table-talk" class="blog-card" data-cats="sales team systems">
+          <div class="bc-img" style="background-image:url('images/blog-table-talk.jpg')">
+            <div class="bc-cats">
+              <span class="bc-cat">Patient Retention</span>
+              <span class="bc-cat alt">Team Development</span>
+            </div>
+          </div>
+          <div class="bc-body">
+            <div class="bc-meta">
+              <span>Feb 23, 2026</span>
+              <span class="bc-meta-dot"></span>
+              <span>5 min read</span>
+              <span class="bc-meta-dot"></span>
+              <span>Natasha Saavedra</span>
+            </div>
+            <h2>How Simple Table Talk Transforms Patient Retention</h2>
+            <p>One visit. One value line. The three-step script that keeps patients committed, informed, and referring — without a single sales pitch.</p>
+            <div class="bc-tags">
+              <span class="bc-tag">Patient Retention</span>
+              <span class="bc-tag">Communication</span>
+              <span class="bc-tag">Team Systems</span>
+            </div>
+            <span class="bc-read">Read Full Article <i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <!-- POST 3 — Defining Standards (LIVE) -->
+        <a href="blog-post.html?post=defining-standards" class="blog-card" data-cats="team leadership culture">
+          <div class="bc-img" style="background-image:url('images/blog-standards-tardiness.jpg')">
+            <div class="bc-cats">
+              <span class="bc-cat">Accountability</span>
+              <span class="bc-cat alt">Team Management</span>
+            </div>
+          </div>
+          <div class="bc-body">
+            <div class="bc-meta">
+              <span>Mar 2, 2026</span>
+              <span class="bc-meta-dot"></span>
+              <span>3 min read</span>
+              <span class="bc-meta-dot"></span>
+              <span>Natasha Saavedra</span>
+            </div>
+            <h2>How Defining Standards Fixes Tardiness in Healthcare</h2>
+            <p>The 3-step structure that transforms punctuality from a recurring frustration into a self-reinforcing cultural standard — without drama or resentment.</p>
+            <div class="bc-tags">
+              <span class="bc-tag">Accountability</span>
+              <span class="bc-tag">Training</span>
+              <span class="bc-tag">Healthcare Mgmt</span>
+            </div>
+            <span class="bc-read">Read Full Article <i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <!-- POST 4 — Revenue Levers (LIVE) -->
+        <a href="blog-post.html?post=revenue-levers" class="blog-card" data-cats="sales systems">
+          <div class="bc-img" style="background-image:url('images/blog-revenue-levers.jpg'); background-position: center top;">
+            <div class="bc-cats">
+              <span class="bc-cat">Sales</span>
+              <span class="bc-cat alt">Practice Growth</span>
+            </div>
+          </div>
+          <div class="bc-body">
+            <div class="bc-meta">
+              <span>Mar 16, 2026</span>
+              <span class="bc-meta-dot"></span>
+              <span>4 min read</span>
+              <span class="bc-meta-dot"></span>
+              <span>Sensei Tosh</span>
+            </div>
+            <h2>How to Unstick Your Revenue Levers</h2>
+            <p>The 4-lever framework for confronting the fear of sales, pricing, and compliance — and building the confidence to reach $1 million in practice revenue.</p>
+            <div class="bc-tags">
+              <span class="bc-tag">Sales</span>
+              <span class="bc-tag">Training</span>
+              <span class="bc-tag">Practice Growth</span>
+            </div>
+            <span class="bc-read">Read Full Article <i class="fas fa-arrow-right"></i></span>
+          </div>
+        </a>
+
+        <!-- POST 5 -->
+        <div class="blog-card" data-cats="sales systems">
+          <div class="bc-img" style="background-image:url('https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=600&q=70')">
+            <div class="bc-cats">
+              <span class="bc-cat alt">Practice Systems</span>
+            </div>
+          </div>
+          <div class="bc-body">
+            <div class="bc-meta"><span>Coming Soon</span></div>
+            <h2>Mastering the Patient Interaction</h2>
+            <p>The Case Manager's PIPS Guide — a framework for structuring every patient interaction to maximize care, trust, and treatment acceptance.</p>
+            <div class="bc-tags">
+              <span class="bc-tag">Systems</span>
+              <span class="bc-tag">Case Management</span>
+              <span class="bc-tag">Patient Experience</span>
+            </div>
+            <span class="bc-read" style="opacity:.4; cursor:default;">Coming Soon <i class="fas fa-clock"></i></span>
+          </div>
+        </div>
+
+        <!-- POST 6 -->
+        <div class="blog-card" data-cats="systems leadership">
+          <div class="bc-img" style="background-image:url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=70')">
+            <div class="bc-cats">
+              <span class="bc-cat alt">Practice Systems</span>
+            </div>
+          </div>
+          <div class="bc-body">
+            <div class="bc-meta"><span>Coming Soon</span></div>
+            <h2>The Power of 1% Better Each Day</h2>
+            <p>Small, consistent improvements compound into massive results. Why the practices that scale fastest aren't the ones that make giant leaps — they're the ones that never stop iterating.</p>
+            <div class="bc-tags">
+              <span class="bc-tag">Growth</span>
+              <span class="bc-tag">Systems</span>
+              <span class="bc-tag">Mindset</span>
+            </div>
+            <span class="bc-read" style="opacity:.4; cursor:default;">Coming Soon <i class="fas fa-clock"></i></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="blog-cta">
+    <div class="container">
+      <h2>Ready to Apply These Insights?</h2>
+      <p>Book a free 30-minute Practice Strategy Call with Natasha and turn these ideas into a real action plan for your clinic.</p>
+      <a href="contact.html#strategy-call">
+        <i class="fas fa-calendar-check"></i> Book Your Free Strategy Call
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner container">
+      <div class="footer-col footer-brand">
+        <p class="footer-col-title text-red">CONNECT WITH US</p>
+        <div class="social-links">
+          <a href="https://www.facebook.com/medprodojo" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/medprodojo/" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">SITE NAVIGATION</p>
+        <ul>
+          <li><a href="about.html">ABOUT</a></li>
+          <li><a href="programs.html">PROGRAMS</a></li>
+          <li><a href="events.html">EVENTS</a></li>
+          <li><a href="resources.html">RESOURCES</a></li>
+          <li><a href="blog.html">BLOG</a></li>
+          <li><a href="vendors.html">VENDORS</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">CONTACT US</p>
+        <ul>
+          <li>Phone: <a href="tel:8336780800">(833) 678-0800</a></li>
+          <li>Email: <a href="mailto:info@medprodojo.com">info@medprodojo.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">LEGAL</p>
+        <ul>
+          <li><a href="#">TERMS &amp; CONDITIONS</a></li>
+          <li><a href="#">PRIVACY POLICY</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2026 Med Pro Dojo. All Rights Reserved.</p></div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Category filter
+    document.querySelectorAll('.bf-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.bf-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const filter = tab.dataset.filter;
+        document.querySelectorAll('#blogGrid [data-cats]').forEach(card => {
+          if (filter === 'all' || card.dataset.cats.includes(filter)) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog Post — Med Pro Dojo</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+  <style>
+    :root { --red:#E8281C; }
+
+    /* ── POST HERO ── */
+    .post-hero {
+      position: relative;
+      background: #080808;
+      padding: 130px 0 0;
+      overflow: hidden;
+    }
+    .post-hero-img {
+      width: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center 30%;
+      display: block;
+      margin-top: 48px;
+    }
+    .post-hero-img-overlay {
+      position:absolute; bottom:0; left:0; right:0; height:200px;
+      background: linear-gradient(to bottom, transparent, #080808);
+      pointer-events:none;
+    }
+    .post-hero-inner { max-width: 820px; margin: 0 auto; padding: 0 28px; }
+    .post-back {
+      display:inline-flex; align-items:center; gap:8px;
+      color:rgba(255,255,255,.45); font-size:13px; font-weight:600;
+      text-decoration:none; margin-bottom:32px;
+      transition: color .2s;
+    }
+    .post-back:hover { color:var(--red); }
+    .post-cats {
+      display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;
+    }
+    .post-cat {
+      display:inline-block;
+      background: rgba(232,40,28,.12); border:1px solid rgba(232,40,28,.3);
+      color:var(--red); font-size:10px; font-weight:700; letter-spacing:.14em;
+      text-transform:uppercase; padding:5px 13px; border-radius:100px;
+    }
+    .post-hero-inner h1 {
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight:900; color:#fff; letter-spacing:-.03em; line-height:1.12;
+      margin-bottom:16px;
+    }
+    .post-subtitle {
+      font-size:18px; color:rgba(255,255,255,.55); line-height:1.65;
+      margin-bottom:28px; font-weight:400;
+    }
+    .post-meta {
+      display:flex; align-items:center; flex-wrap:wrap; gap:16px;
+      padding-bottom:28px;
+      border-bottom:1px solid rgba(255,255,255,.07);
+    }
+    .post-author-wrap {
+      display:flex; align-items:center; gap:10px;
+    }
+    .post-author-avatar {
+      width:40px; height:40px; border-radius:50%;
+      object-fit:cover; object-position:top;
+      border:2px solid rgba(232,40,28,.4);
+    }
+    .post-author-name { font-size:13px; font-weight:700; color:#fff; }
+    .post-author-title { font-size:11px; color:rgba(255,255,255,.35); }
+    .post-meta-divider { width:1px; height:28px; background:rgba(255,255,255,.1); }
+    .post-meta-item {
+      display:flex; align-items:center; gap:6px;
+      font-size:12px; color:rgba(255,255,255,.35);
+    }
+    .post-meta-item i { color:var(--red); font-size:11px; }
+
+    /* ── ARTICLE LAYOUT ── */
+    .post-layout {
+      background:#080808;
+      padding: 0 0 100px;
+    }
+    .post-inner {
+      max-width:820px; margin:0 auto; padding:0 28px;
+    }
+
+    /* ── ARTICLE BODY ── */
+    .post-body {
+      padding-top: 52px;
+      color:rgba(255,255,255,.72);
+      font-size:16.5px;
+      line-height:1.85;
+    }
+    .post-body p { margin-bottom:22px; }
+    .post-body h2 {
+      font-size:22px; font-weight:800; color:#fff;
+      letter-spacing:-.02em; margin:44px 0 16px;
+      padding-top:8px;
+    }
+    .post-body h3 {
+      font-size:18px; font-weight:700; color:#fff;
+      letter-spacing:-.01em; margin:32px 0 12px;
+    }
+    .post-body strong { color:rgba(255,255,255,.9); font-weight:700; }
+    .post-body em { color:rgba(255,255,255,.6); font-style:italic; }
+
+    /* Pull quote */
+    .post-pullquote {
+      border-left:4px solid var(--red);
+      background:rgba(232,40,28,.06);
+      border-radius:0 12px 12px 0;
+      padding:20px 24px;
+      margin:32px 0;
+      font-size:18px; font-weight:600; font-style:italic;
+      color:rgba(255,255,255,.8); line-height:1.6;
+    }
+    .post-pullquote .pq-emoji { font-style:normal; }
+
+    /* Highlight box */
+    .post-highlight {
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:14px;
+      padding:24px 28px;
+      margin:28px 0;
+    }
+    .post-highlight h4 {
+      font-size:13px; font-weight:700; color:var(--red);
+      letter-spacing:.1em; text-transform:uppercase;
+      margin-bottom:14px;
+    }
+
+    /* Checklist */
+    .post-checklist {
+      list-style:none; padding:0; margin:16px 0 24px;
+      display:flex; flex-direction:column; gap:10px;
+    }
+    .post-checklist li {
+      display:flex; align-items:flex-start; gap:10px;
+      font-size:15.5px; color:rgba(255,255,255,.72); line-height:1.6;
+    }
+    .post-checklist li i { color:var(--red); font-size:14px; margin-top:3px; flex-shrink:0; }
+
+    /* Compare columns */
+    .post-compare {
+      display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:24px 0 32px;
+    }
+    .post-compare-col {
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      border-top:3px solid;
+      border-radius:0 0 12px 12px;
+      padding:20px;
+    }
+    .post-compare-col.red { border-top-color:rgba(232,40,28,.6); }
+    .post-compare-col.green { border-top-color:rgba(16,185,129,.6); }
+    .post-compare-col h5 {
+      font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+      margin-bottom:14px; color:rgba(255,255,255,.45);
+    }
+    .post-compare-col ul { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; }
+    .post-compare-col ul li { font-size:14px; color:rgba(255,255,255,.65); line-height:1.5; display:flex; gap:8px; }
+
+    /* Numbered steps */
+    .post-steps { margin:24px 0 32px; display:flex; flex-direction:column; gap:20px; }
+    .post-step {
+      display:flex; gap:18px; align-items:flex-start;
+    }
+    .post-step-num {
+      flex-shrink:0; width:36px; height:36px; border-radius:50%;
+      background:rgba(232,40,28,.12); border:1.5px solid rgba(232,40,28,.35);
+      display:flex; align-items:center; justify-content:center;
+      font-size:14px; font-weight:900; color:var(--red);
+    }
+    .post-step-body h4 { font-size:16px; font-weight:800; color:#fff; margin-bottom:6px; }
+    .post-step-body p { font-size:14.5px; color:rgba(255,255,255,.55); line-height:1.65; margin:0; }
+
+    /* Divider */
+    .post-divider {
+      width:60px; height:3px; background:var(--red); border-radius:2px;
+      margin:48px 0;
+    }
+
+    /* Reflection box */
+    .post-reflection {
+      background:linear-gradient(135deg,rgba(232,40,28,.08),rgba(232,40,28,.03));
+      border:1px solid rgba(232,40,28,.2);
+      border-radius:16px; padding:28px 32px; margin:32px 0;
+    }
+    .post-reflection h4 {
+      font-size:14px; font-weight:800; color:var(--red);
+      letter-spacing:.08em; text-transform:uppercase; margin-bottom:16px;
+    }
+    .post-reflection ul { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:12px; }
+    .post-reflection ul li {
+      font-size:15px; color:rgba(255,255,255,.7); line-height:1.6;
+      display:flex; gap:10px; align-items:flex-start;
+    }
+    .post-reflection ul li::before {
+      content:'→'; color:var(--red); font-weight:700; flex-shrink:0;
+    }
+
+    /* Table Talk – 3-step script card */
+    .script-steps { display:flex; flex-direction:column; gap:0; margin:24px 0 32px; }
+    .script-step {
+      display:flex; gap:0; align-items:stretch;
+    }
+    .script-step-line {
+      display:flex; flex-direction:column; align-items:center; flex-shrink:0; width:44px;
+    }
+    .script-step-circle {
+      width:36px; height:36px; border-radius:50%;
+      background:var(--red); display:flex; align-items:center; justify-content:center;
+      font-size:14px; font-weight:900; color:#fff; flex-shrink:0;
+    }
+    .script-step-connector {
+      width:2px; flex-grow:1; background:rgba(232,40,28,.2); margin:4px 0;
+    }
+    .script-step:last-child .script-step-connector { display:none; }
+    .script-step-body {
+      padding:0 0 28px 16px;
+    }
+    .script-step-body h4 { font-size:16px; font-weight:800; color:#fff; margin-bottom:8px; }
+    .script-step-body p { font-size:14.5px; color:rgba(255,255,255,.58); line-height:1.65; margin:0 0 10px; }
+    .script-step-example {
+      background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);
+      border-left:3px solid var(--red); border-radius:0 10px 10px 0;
+      padding:12px 16px;
+      font-size:14px; color:rgba(255,255,255,.65); font-style:italic; line-height:1.6;
+    }
+    .script-step-example strong { color:rgba(255,255,255,.85); font-style:normal; }
+
+    /* Role cards */
+    .role-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:24px 0 32px; }
+    .role-card {
+      background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08);
+      border-radius:14px; padding:20px 18px;
+    }
+    .role-card-icon {
+      width:40px; height:40px; border-radius:10px;
+      background:rgba(232,40,28,.1); border:1px solid rgba(232,40,28,.2);
+      display:flex; align-items:center; justify-content:center;
+      font-size:16px; color:var(--red); margin-bottom:12px;
+    }
+    .role-card h5 { font-size:13px; font-weight:800; color:#fff; margin-bottom:6px; letter-spacing:.03em; }
+    .role-card p { font-size:12.5px; color:rgba(255,255,255,.5); line-height:1.6; margin:0; }
+
+    /* CTA block inside post */
+    .post-cta-block {
+      background:#111; border:1px solid rgba(232,40,28,.2);
+      border-radius:18px; padding:36px 32px; margin:48px 0 0;
+      text-align:center;
+    }
+    .post-cta-block h3 { font-size:20px; font-weight:800; color:#fff; margin-bottom:10px; }
+    .post-cta-block p { font-size:14px; color:rgba(255,255,255,.5); margin-bottom:24px; line-height:1.6; }
+    .post-cta-block .cta-links { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; }
+    .post-cta-block a.cta-primary {
+      display:inline-flex; align-items:center; gap:8px;
+      background:var(--red); color:#fff; font-size:13px; font-weight:700;
+      letter-spacing:.07em; text-transform:uppercase;
+      padding:13px 28px; border-radius:8px; text-decoration:none;
+      transition:background .2s, transform .2s;
+    }
+    .post-cta-block a.cta-primary:hover { background:#c41c12; transform:translateY(-1px); }
+    .post-cta-block a.cta-ghost {
+      display:inline-flex; align-items:center; gap:8px;
+      background:transparent; border:1.5px solid rgba(255,255,255,.15);
+      color:rgba(255,255,255,.7); font-size:13px; font-weight:600;
+      padding:12px 24px; border-radius:8px; text-decoration:none;
+      transition:border-color .2s, color .2s;
+    }
+    .post-cta-block a.cta-ghost:hover { border-color:rgba(255,255,255,.4); color:#fff; }
+
+    /* ── SIDEBAR / RELATED POSTS ── */
+    .post-footer-related {
+      background:#0f0f0f;
+      border-top:1px solid rgba(255,255,255,.07);
+      padding:72px 0 100px;
+    }
+    .post-footer-related h3 {
+      font-size:22px; font-weight:800; color:#fff;
+      margin-bottom:32px; letter-spacing:-.02em;
+    }
+    .related-grid {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:22px;
+    }
+    .related-card {
+      background:#141414;
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:18px; overflow:hidden;
+      text-decoration:none;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .related-card:hover { transform:translateY(-4px); box-shadow:0 16px 40px rgba(0,0,0,.5); }
+    .related-card-img { height:150px; background-size:cover; background-position:center; }
+    .related-card-body { padding:20px; }
+    .related-card-body span {
+      font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+      color:var(--red); display:block; margin-bottom:8px;
+    }
+    .related-card-body h4 { font-size:15px; font-weight:700; color:#fff; line-height:1.35; }
+
+    @media(max-width:768px) {
+      .post-compare { grid-template-columns:1fr; }
+      .related-grid { grid-template-columns:1fr; }
+      .role-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announcement-bar" id="announcementBar">
+    <div class="announcement-inner">
+      <span class="announcement-arrow">→</span>
+      <a href="https://peptidesunlocked.eventbrite.com" target="_blank">
+        ELEVATE YOUR 2026 IMPACT: ROUNDTABLE TALK: PEPTIDES UNLOCKED THIS MAR 25.
+      </a>
+    </div>
+    <button class="announcement-close">✕</button>
+  </div>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">
+        <img src="images/logo-official.png" alt="Med Pro Dojo" class="logo-img-nav" />
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-link">HOME</a>
+        <a href="about.html" class="nav-link">ABOUT</a>
+        <a href="programs.html" class="nav-link">PROGRAMS</a>
+        <a href="events.html" class="nav-link">EVENTS</a>
+        <a href="testimonials.html" class="nav-link">TESTIMONIALS</a>
+        <a href="resources.html" class="nav-link active">RESOURCES</a>
+        <a href="vendors.html" class="nav-link">VENDORS</a>
+        <a href="contact.html" class="nav-link">CONTACT</a>
+      </div>
+      <div class="nav-actions">
+        <a href="contact.html#strategy-call" class="btn btn-outline">BOOK A STRATEGY CALL</a>
+        <a href="#" class="btn btn-primary">MEMBER LOGIN</a>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- POST HERO — filled by JS -->
+  <section class="post-hero" id="postHero">
+    <div class="post-hero-inner" id="postHeroInner">
+      <a href="blog.html" class="post-back"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+      <!-- dynamic content injected here -->
+    </div>
+    <!-- hero image injected after inner -->
+    <div class="post-hero-img-overlay"></div>
+  </section>
+
+  <!-- ARTICLE -->
+  <section class="post-layout">
+    <div class="post-inner">
+      <div class="post-body" id="postBody">
+        <!-- dynamic content injected here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- RELATED POSTS -->
+  <section class="post-footer-related">
+    <div class="container">
+      <h3>More from the Blog</h3>
+      <div class="related-grid" id="relatedGrid">
+        <!-- dynamic content injected here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner container">
+      <div class="footer-col footer-brand">
+        <p class="footer-col-title text-red">CONNECT WITH US</p>
+        <div class="social-links">
+          <a href="https://www.facebook.com/medprodojo" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/medprodojo/" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">SITE NAVIGATION</p>
+        <ul>
+          <li><a href="about.html">ABOUT</a></li>
+          <li><a href="programs.html">PROGRAMS</a></li>
+          <li><a href="resources.html">RESOURCES</a></li>
+          <li><a href="blog.html">BLOG</a></li>
+          <li><a href="contact.html">CONTACT</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">CONTACT US</p>
+        <ul>
+          <li>Phone: <a href="tel:8336780800">(833) 678-0800</a></li>
+          <li>Email: <a href="mailto:info@medprodojo.com">info@medprodojo.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">LEGAL</p>
+        <ul>
+          <li><a href="#">TERMS &amp; CONDITIONS</a></li>
+          <li><a href="#">PRIVACY POLICY</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2026 Med Pro Dojo. All Rights Reserved.</p></div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+  // ─────────────────────────────────────────────
+  //  BLOG POST DATA
+  // ─────────────────────────────────────────────
+  const POSTS = {
+
+    /* ── POST 1 ─────────────────────────────── */
+    'handing-them-a-manual': {
+      title: "Handing Them a Manual Isn't Leadership",
+      subtitle: "Why Most Healthcare New Hires Fail — And What Strong Leaders Do Differently",
+      date: "February 16, 2026",
+      readTime: "4 min read",
+      image: "images/blog-grind-is-real.jpg",
+      imageAlt: "Healthcare leadership and team development",
+      cats: ["Leadership", "Workplace Culture", "Team Development", "Training", "Conflict Resolution"],
+      html: `
+        <div class="post-pullquote">
+          <span class="pq-emoji">💛</span> "People Don't Fail Training. They Lack Leadership."
+        </div>
+
+        <p>Let's talk about something that happens <strong>every day in healthcare practices</strong> — and yet almost no one wants to take responsibility for it.</p>
+        <p>Leaders say: <em>"These people just aren't sticking."</em></p>
+        <p>Turnover feels constant. Energy feels drained. And every new hire feels like another gamble.</p>
+        <p>But here's the uncomfortable truth:</p>
+
+        <div class="post-pullquote">
+          Most new hires aren't failing the job.<br />
+          They're failing the gap between <strong>training and ownership</strong>.<br /><br />
+          And that gap? <strong>It's created by leadership — not the workforce.</strong>
+        </div>
+
+        <h2>The Real Problem Isn't the Employee — It's the Missing Middle</h2>
+        <p>Picture this familiar scene:</p>
+
+        <div class="post-highlight">
+          <h4>Sound Familiar?</h4>
+          <p style="color:rgba(255,255,255,.65);font-style:italic;font-size:15px;line-height:1.7;margin:0">
+            "Hey, welcome to the team. Here's your manual. Read it tonight. You'll be ready to do the job tomorrow."
+          </p>
+        </div>
+
+        <p>Sounds efficient. Feels productive. But it's actually a setup for failure — because <strong>onboarding alone is not leadership.</strong></p>
+
+        <div class="post-compare">
+          <div class="post-compare-col red">
+            <h5>Onboarding Includes</h5>
+            <ul>
+              <li><i class="fas fa-check" style="color:rgba(232,40,28,.7)"></i> Policies &amp; procedures</li>
+              <li><i class="fas fa-check" style="color:rgba(232,40,28,.7)"></i> Employee handbook</li>
+              <li><i class="fas fa-check" style="color:rgba(232,40,28,.7)"></i> Rules of engagement</li>
+            </ul>
+          </div>
+          <div class="post-compare-col red">
+            <h5>Training Includes</h5>
+            <ul>
+              <li><i class="fas fa-check" style="color:rgba(232,40,28,.7)"></i> Job-specific instructions</li>
+              <li><i class="fas fa-check" style="color:rgba(232,40,28,.7)"></i> Equipment use</li>
+              <li><i class="fas fa-check" style="color:rgba(232,40,28,.7)"></i> Role expectations</li>
+            </ul>
+          </div>
+        </div>
+
+        <p>Most offices stop here — and wonder why people quit. What's missing is <strong>the bridge between knowledge and execution.</strong></p>
+
+        <div class="post-divider"></div>
+
+        <h2>The Missing Link: Competency, Stress Testing, and Apprenticeship</h2>
+        <p>True leadership transforms new hires into owners of their role through <strong>three critical systems:</strong></p>
+
+        <div class="post-steps">
+          <div class="post-step">
+            <div class="post-step-num">1</div>
+            <div class="post-step-body">
+              <h4>Competency Checklists — From Knowing to Owning</h4>
+              <p>Every task a team member is trained on should be <strong>demonstrated, not assumed</strong>. Not "they read it" — but <em>"Show me."</em> If they can't teach it back, they don't own it yet.</p>
+            </div>
+          </div>
+          <div class="post-step">
+            <div class="post-step-num">2</div>
+            <div class="post-step-body">
+              <h4>Stress Testing — Without Rescuing</h4>
+              <p>Let them run the position for a full day. Handle real situations. Make decisions. Reveal gaps safely — without hovering or disappearing. Then debrief: what went well? Where were you unsure? <strong>This isn't punishment. This is leadership clarity.</strong></p>
+            </div>
+          </div>
+          <div class="post-step">
+            <div class="post-step-num">3</div>
+            <div class="post-step-body">
+              <h4>Apprenticeship — The Leadership Skill We Forgot</h4>
+              <p>Pass down expertise. Coach weaknesses intentionally. Measure progress through KPIs. Reinforce confidence and competence. Just like rehab — you don't retest everything, you <strong>strengthen what failed.</strong> And apprenticeship is ongoing, not a one-day event.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="post-divider"></div>
+
+        <h2>Why Leaders Burn Out (And Don't Know Why)</h2>
+        <p>When this process is skipped, leaders inherit a cascade of problems:</p>
+
+        <ul class="post-checklist">
+          <li><i class="fas fa-times-circle"></i> Constant questions that pull you out of patient care</li>
+          <li><i class="fas fa-times-circle"></i> Emotional labor that drains your leadership capacity</li>
+          <li><i class="fas fa-times-circle"></i> Micromanagement that kills team initiative</li>
+          <li><i class="fas fa-times-circle"></i> Missed KPIs and owner dependency</li>
+          <li><i class="fas fa-times-circle"></i> Team frustration and revolving door turnover</li>
+        </ul>
+
+        <p>And then they say: <em>"People just don't want to work."</em></p>
+        <p>But the truth is harder — and more empowering:</p>
+
+        <div class="post-pullquote">
+          People rise to the systems they're given.
+        </div>
+
+        <h2>When It's Still Not Working</h2>
+        <p>Strong leadership also knows when to make clear decisions. After proper onboarding, real training, competency validation, stress testing, and apprenticeship support — if someone still isn't thriving?</p>
+        <p>It may simply be: <strong>the wrong seat — not the wrong person.</strong> And clarity is kindness.</p>
+
+        <div class="post-divider"></div>
+
+        <div class="post-reflection">
+          <h4>Leadership Reflection</h4>
+          <ul>
+            <li>Do my systems prepare people to succeed — or hope they "figure it out"?</li>
+            <li>Am I creating ownership — or dependency?</li>
+            <li>Would I feel confident stepping into my office systems as a new hire?</li>
+          </ul>
+        </div>
+
+        <p>Because revolving doors aren't a workforce issue. <strong>They're a leadership systems issue.</strong></p>
+
+        <h2>A Better Way to Build Teams That Stick</h2>
+        <p>Medical Professional Dojo helps healthcare leaders replace chaos with clarity through:</p>
+
+        <ul class="post-checklist">
+          <li><i class="fas fa-check-circle"></i> Intentional hiring frameworks</li>
+          <li><i class="fas fa-check-circle"></i> Structured onboarding systems</li>
+          <li><i class="fas fa-check-circle"></i> Competency validation checklists</li>
+          <li><i class="fas fa-check-circle"></i> Apprenticeship leadership models</li>
+        </ul>
+
+        <div class="post-pullquote">
+          Strong teams aren't found. They're built.<br />
+          And leadership doesn't end at the offer letter — <strong>it starts there.</strong>
+        </div>
+
+        <p><strong>Stop handing people manuals and calling it leadership.</strong><br />
+        Stop blaming the workforce for broken systems.<br /><br />
+        Train with intention. Stress test with wisdom. Apprentice with purpose.</p>
+
+        <div class="post-cta-block">
+          <h3>Ready to Build a Team That Sticks?</h3>
+          <p>Med Pro Dojo helps healthcare practices install the leadership systems that turn new hires into long-term, high-performing team members.</p>
+          <div class="cta-links">
+            <a href="https://link.medprodojo.com/widget/booking/00SZ78V6CJfntwsghkMk" target="_blank" class="cta-primary">
+              <i class="fas fa-calendar-check"></i> Book a Discovery Call
+            </a>
+            <a href="https://www.youtube.com/@medprodojo" target="_blank" class="cta-ghost">
+              <i class="fab fa-youtube"></i> Watch the Full Training
+            </a>
+            <a href="programs.html" class="cta-ghost">
+              <i class="fas fa-graduation-cap"></i> Browse Programs
+            </a>
+          </div>
+          <p style="margin:20px 0 0;font-size:12px;color:rgba(255,255,255,.3);">
+            📧 info@medprodojo.com &nbsp;|&nbsp; 📞 (833) 678-0800
+          </p>
+        </div>
+      `,
+      related: [
+        { href: 'blog-post.html?post=table-talk', img: 'images/blog-table-talk.jpg', cat: 'Patient Retention', title: 'How Simple Table Talk Transforms Patient Retention and Results' },
+        { href: 'blog-post.html?post=defining-standards', img: 'images/blog-standards-tardiness.jpg', cat: 'Accountability', title: 'How Defining Standards Fixes the Problem of Tardiness in Healthcare' },
+        { href: 'blog.html', img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=70', cat: 'Leadership', title: 'Correcting vs. Disciplining: Coaching Your Team the Right Way' }
+      ]
+    },
+
+    /* ── POST 2 ─────────────────────────────── */
+    'table-talk': {
+      title: "How Simple Table Talk Transforms Patient Retention and Results in Healthcare",
+      subtitle: "One visit. One value line. The conversation that changes everything — and the three-step script every team member needs.",
+      date: "February 23, 2026",
+      readTime: "5 min read",
+      image: "images/blog-table-talk.jpg",
+      imageAlt: "Healthcare provider building patient rapport",
+      cats: ["Patient Retention", "Team Development", "Sales", "Practice Systems", "Communication"],
+      html: `
+        <div class="post-pullquote">
+          <span class="pq-emoji">🗣️</span> "One visit. One value line. That's it."
+        </div>
+
+        <p>In healthcare, we spend enormous energy trying to <strong>attract new patients</strong> — marketing campaigns, referral programs, Google ads.</p>
+        <p>But what if the biggest retention and revenue opportunity in your practice was already standing at your table, lying on your rehab table, or checking in at your front desk?</p>
+        <p>The answer is <strong>Table Talk</strong> — and it's one of the highest-leverage skills any clinical team can develop.</p>
+
+        <h2>What Is Table Talk?</h2>
+
+        <div class="post-highlight">
+          <h4>The Core Principle</h4>
+          <p style="color:rgba(255,255,255,.65);font-size:15px;line-height:1.7;margin:0">
+            Table Talk is the intentional, value-adding conversation that happens <strong>during every patient interaction</strong> — not just at the report of findings or treatment plan presentation. It's the ongoing, soft touchpoint that keeps patients informed, connected, and committed to their care.
+          </p>
+        </div>
+
+        <p>Most clinical teams are already talking to patients. But there's a difference between <em>small talk</em> and <em>strategic Table Talk</em>:</p>
+
+        <div class="post-compare">
+          <div class="post-compare-col red">
+            <h5>Small Talk (Low Value)</h5>
+            <ul>
+              <li><i class="fas fa-minus" style="color:rgba(255,255,255,.3)"></i> "How's the weather?"</li>
+              <li><i class="fas fa-minus" style="color:rgba(255,255,255,.3)"></i> "Have a good weekend!"</li>
+              <li><i class="fas fa-minus" style="color:rgba(255,255,255,.3)"></i> "You doing okay today?"</li>
+            </ul>
+          </div>
+          <div class="post-compare-col green">
+            <h5>Table Talk (High Value)</h5>
+            <ul>
+              <li><i class="fas fa-check" style="color:rgba(16,185,129,.7)"></i> Validates the patient's experience</li>
+              <li><i class="fas fa-check" style="color:rgba(16,185,129,.7)"></i> Educates about progress &amp; next steps</li>
+              <li><i class="fas fa-check" style="color:rgba(16,185,129,.7)"></i> Bridges to additional care/services</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="post-divider"></div>
+
+        <h2>The 3-Step Table Talk Script</h2>
+        <p>Med Pro Dojo teaches every clinical team — from providers to front desk — a simple three-step framework that creates trust, improves outcomes, and naturally increases case acceptance without feeling pushy or salesy.</p>
+
+        <div class="script-steps">
+          <div class="script-step">
+            <div class="script-step-line">
+              <div class="script-step-circle">1</div>
+              <div class="script-step-connector"></div>
+            </div>
+            <div class="script-step-body">
+              <h4>Validate the Patient's Experience</h4>
+              <p>Acknowledge exactly where they are — physically, emotionally, and with their progress. Patients who feel heard are far more likely to follow through on care recommendations.</p>
+              <div class="script-step-example">
+                <strong>Example:</strong> "I noticed you mentioned your lower back has been responding well to the adjustments this week — that tells us the inflammation is starting to shift. That's a great sign at this stage of your plan."
+              </div>
+            </div>
+          </div>
+
+          <div class="script-step">
+            <div class="script-step-line">
+              <div class="script-step-circle">2</div>
+              <div class="script-step-connector"></div>
+            </div>
+            <div class="script-step-body">
+              <h4>Educate Why It's Happening</h4>
+              <p>Briefly explain the <em>why</em> behind what they're experiencing. When patients understand the mechanism, they trust the process — and compliance skyrockets.</p>
+              <div class="script-step-example">
+                <strong>Example:</strong> "What's happening is that your nervous system is starting to reset its holding pattern. The soreness you felt after last visit is actually a sign your muscles are being retrained — not that something went wrong."
+              </div>
+            </div>
+          </div>
+
+          <div class="script-step">
+            <div class="script-step-line">
+              <div class="script-step-circle">3</div>
+              <div class="script-step-connector"></div>
+            </div>
+            <div class="script-step-body">
+              <h4>Bridge to the Next Service</h4>
+              <p>Naturally introduce the next step in their care — whether it's another phase of treatment, a complementary service, or a referral. This isn't upselling. It's <strong>completing the care picture.</strong></p>
+              <div class="script-step-example">
+                <strong>Example:</strong> "Based on where you're at, I think you'd really benefit from adding in some decompression therapy. It'll accelerate the results we're already seeing and give your spine some extra space to heal. Want me to have the team walk you through what that looks like?"
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="post-divider"></div>
+
+        <h2>Table Talk Is a Team Sport — Not Just for Providers</h2>
+        <p>One of the most powerful shifts a practice can make is teaching every role to speak the language of value. Table Talk isn't reserved for the provider's room — it happens everywhere in your clinic.</p>
+
+        <div class="role-grid">
+          <div class="role-card">
+            <div class="role-card-icon"><i class="fas fa-user-md"></i></div>
+            <h5>Providers</h5>
+            <p>Validate progress. Educate about the treatment phase. Bridge to additional care modalities or niche services.</p>
+          </div>
+          <div class="role-card">
+            <div class="role-card-icon"><i class="fas fa-dumbbell"></i></div>
+            <h5>Rehab Technicians</h5>
+            <p>Reinforce the clinical message. Ask about symptoms during exercises. Identify new complaints to report back to the provider.</p>
+          </div>
+          <div class="role-card">
+            <div class="role-card-icon"><i class="fas fa-concierge-bell"></i></div>
+            <h5>Front Desk Staff</h5>
+            <p>Confirm upcoming appointments with purpose. Remind patients what's next in their plan. Plant the seed for wellness or maintenance care at checkout.</p>
+          </div>
+        </div>
+
+        <p>When every team member speaks a consistent message, patients <strong>hear it three to four times per visit</strong> — reinforcing their commitment and trust without any single person bearing the entire communication load.</p>
+
+        <div class="post-divider"></div>
+
+        <h2>The Results Speak for Themselves</h2>
+
+        <ul class="post-checklist">
+          <li><i class="fas fa-chart-line"></i> <strong>Higher retention:</strong> Patients who understand their progress are far less likely to drop off care prematurely.</li>
+          <li><i class="fas fa-handshake"></i> <strong>Stronger trust:</strong> Consistent communication builds a relationship, not just a transaction.</li>
+          <li><i class="fas fa-check-circle"></i> <strong>Better compliance:</strong> Educated patients follow home care instructions, keep appointments, and refer friends and family.</li>
+          <li><i class="fas fa-dollar-sign"></i> <strong>Natural case expansion:</strong> When patients understand the full care continuum, adding services becomes a logical next step — not a sales pitch.</li>
+        </ul>
+
+        <div class="post-pullquote">
+          Table Talk isn't about saying more. It's about saying the <strong>right things</strong> at the right moment — every visit, every team member, every time.
+        </div>
+
+        <h2>Putting It Into Practice</h2>
+        <p>Here's how to get your team started this week:</p>
+
+        <div class="post-steps">
+          <div class="post-step">
+            <div class="post-step-num">1</div>
+            <div class="post-step-body">
+              <h4>Define One Value Line Per Role</h4>
+              <p>Have each team member craft <strong>one value-adding statement</strong> they can authentically use with patients this week. Make it specific to their role and natural to their voice.</p>
+            </div>
+          </div>
+          <div class="post-step">
+            <div class="post-step-num">2</div>
+            <div class="post-step-body">
+              <h4>Practice in Morning Huddle</h4>
+              <p>Role-play the three-step script in your morning team huddle. It takes five minutes and dramatically improves confidence. What's practiced becomes natural.</p>
+            </div>
+          </div>
+          <div class="post-step">
+            <div class="post-step-num">3</div>
+            <div class="post-step-body">
+              <h4>Track &amp; Celebrate Wins</h4>
+              <p>When a patient says "I didn't know you offered that — I'm interested!", write it down. Celebrate it in the next huddle. Culture shifts when wins are made visible.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="post-reflection">
+          <h4>Team Reflection Questions</h4>
+          <ul>
+            <li>Is every team member trained on what to say — or just what to do?</li>
+            <li>Does our patient communication end at the treatment room, or does it continue through checkout?</li>
+            <li>Are we leaving value on the table by not educating patients at every touchpoint?</li>
+          </ul>
+        </div>
+
+        <p>The best part? <strong>Table Talk costs nothing to implement.</strong> It requires no new technology, no marketing budget, and no major operational overhaul. It just requires intention — and the right training.</p>
+
+        <div class="post-pullquote">
+          Your team is already talking to patients.<br />
+          The question is: <strong>are those conversations building your practice — or just passing the time?</strong>
+        </div>
+
+        <div class="post-cta-block">
+          <h3>Want to Train Your Team on Table Talk?</h3>
+          <p>Med Pro Dojo offers full team communication and case acceptance training as part of our Practice Transformation and Team Dojo programs. Let's build a team that converts trust into results.</p>
+          <div class="cta-links">
+            <a href="https://link.medprodojo.com/widget/booking/00SZ78V6CJfntwsghkMk" target="_blank" class="cta-primary">
+              <i class="fas fa-calendar-check"></i> Book a Discovery Call
+            </a>
+            <a href="programs.html" class="cta-ghost">
+              <i class="fas fa-graduation-cap"></i> Browse Programs
+            </a>
+            <a href="resources.html" class="cta-ghost">
+              <i class="fas fa-book-open"></i> Free Resources
+            </a>
+          </div>
+          <p style="margin:20px 0 0;font-size:12px;color:rgba(255,255,255,.3);">
+            📧 info@medprodojo.com &nbsp;|&nbsp; 📞 (833) 678-0800
+          </p>
+        </div>
+      `,
+      related: [
+        { href: 'blog-post.html?post=handing-them-a-manual', img: 'images/blog-grind-is-real.jpg', cat: 'Leadership', title: "Handing Them a Manual Isn't Leadership" },
+        { href: 'blog-post.html?post=defining-standards', img: 'images/blog-standards-tardiness.jpg', cat: 'Accountability', title: 'How Defining Standards Fixes the Problem of Tardiness in Healthcare' },
+        { href: 'blog.html', img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=70', cat: 'Leadership', title: 'Correcting vs. Disciplining: Coaching Your Team the Right Way' }
+      ]
+    }
+
+    ,
+
+    /* ── POST 4 ─────────────────────────────── */
+    'revenue-levers': {
+      title: "How to Unstick Your Revenue Levers",
+      subtitle: "Confronting the Fear of Sales, Pricing, and Compliance — The 4 Levers Every Practice Must Master to Reach $1 Million",
+      date: "March 16, 2026",
+      readTime: "4 min read",
+      image: "images/blog-revenue-levers.jpg",
+      imageAlt: "3 Levers to $1 Million Practice — Unstuck Your Revenue",
+      cats: ["Continuous Learning", "Training", "Sales", "Practice Growth"],
+      html: `
+        <div class="post-pullquote">
+          <span class="pq-emoji">💰</span> "Most people get this completely wrong — and it's costing them their growth ceiling."
+        </div>
+
+        <p>Every practice encounter — from the first marketing touchpoint to a patient's final wellness visit — is more than just a task on the schedule.</p>
+
+        <p>It's an <strong>opportunity</strong>:</p>
+
+        <ul class="post-checklist">
+          <li><i class="fas fa-check-circle"></i> An opportunity to diversify patient acquisition.</li>
+          <li><i class="fas fa-check-circle"></i> An opportunity to improve conversions.</li>
+          <li><i class="fas fa-check-circle"></i> An opportunity to increase collections and lifetime visit average.</li>
+        </ul>
+
+        <p>As Sensei Tosh shared in this practice training: a <strong>low "ability to confront"</strong> in most offices is exactly what causes the four key revenue levers to get stuck. The fix? Confidence — built through training and repetition.</p>
+
+        <div class="post-pullquote">
+          This isn't about manipulation.<br />
+          It's about helping the patient <strong>get better results</strong>.
+        </div>
+
+        <div class="post-divider"></div>
+
+        <h2>Why Revenue Levers Get Stuck</h2>
+
+        <p>The four revenue levers stall because of <strong>fear</strong> — in the leader, in the team, or both. And that fear almost always circles back to one thing: <em>confrontation</em>.</p>
+
+        <div class="post-highlight">
+          <h4>Common Revenue Killers</h4>
+          <ul class="post-checklist" style="margin:0">
+            <li><i class="fas fa-times-circle"></i> Focusing all marketing on social media instead of diversifying channels.</li>
+            <li><i class="fas fa-times-circle"></i> Lacking sales training, allowing team members to minimize care plans.</li>
+            <li><i class="fas fa-times-circle"></i> Fearing the presentation of what the patient <em>actually</em> needs.</li>
+            <li><i class="fas fa-times-circle"></i> Failing to enforce visit compliance policies.</li>
+          </ul>
+        </div>
+
+        <p>High revenue is built on <strong>confronting these issues with confidence</strong> — confidence that only comes through systematic training and daily repetition.</p>
+
+        <div class="post-divider"></div>
+
+        <h2>The 4-Lever Framework That Unsticks Revenue</h2>
+
+        <div class="post-steps">
+
+          <div class="post-step">
+            <div class="post-step-num">1</div>
+            <div class="post-step-body">
+              <h4>New Patients — Diversify Acquisition</h4>
+              <p>Don't get stuck on a one-minded marketing approach. Social media alone is not a patient pipeline — it's one channel among many.</p>
+              <div class="post-highlight" style="margin-top:12px">
+                <h4>Diversified Marketing Mix</h4>
+                <div class="role-grid" style="margin:0;grid-template-columns:1fr 1fr;">
+                  <div class="role-card">
+                    <div class="role-card-icon"><i class="fas fa-broadcast-tower"></i></div>
+                    <h5>Broadcast</h5>
+                    <p>Radio, TV, streaming ads reach demographics that scroll past your social posts.</p>
+                  </div>
+                  <div class="role-card">
+                    <div class="role-card-icon"><i class="fas fa-newspaper"></i></div>
+                    <h5>Print</h5>
+                    <p>Newspapers and magazines still convert for patients 55+ — don't write them off.</p>
+                  </div>
+                  <div class="role-card">
+                    <div class="role-card-icon"><i class="fas fa-desktop"></i></div>
+                    <h5>Digital</h5>
+                    <p>Banner ads, retargeting, streaming TV ads — paid digital beyond social.</p>
+                  </div>
+                  <div class="role-card">
+                    <div class="role-card-icon"><i class="fas fa-handshake"></i></div>
+                    <h5>Boots on Ground</h5>
+                    <p>Relationship-building with referring professionals in your community.</p>
+                  </div>
+                </div>
+              </div>
+              <p style="margin-top:12px;font-size:14.5px;color:rgba(255,255,255,.55);">Diversification provides multiple, stable growth channels — so no single platform can stall your intake.</p>
+            </div>
+          </div>
+
+          <div class="post-step">
+            <div class="post-step-num">2</div>
+            <div class="post-step-body">
+              <h4>Better Conversions — Train the Confront</h4>
+              <p>Better conversions require a <strong>high-level ability to confront</strong>. Equip every team member involved in case presentations with real sales training — not just product knowledge.</p>
+              <div class="post-highlight" style="margin-top:12px">
+                <h4>What Actually Builds Conversion Skill</h4>
+                <ul class="post-checklist" style="margin:0">
+                  <li><i class="fas fa-check-circle"></i> Daily drilling and roleplaying — just like a sports team that practices before every game.</li>
+                  <li><i class="fas fa-check-circle"></i> Recording and auditing consults to identify exactly where the conversation breaks down.</li>
+                  <li><i class="fas fa-check-circle"></i> Coaching team members on objection handling and closing language.</li>
+                </ul>
+              </div>
+              <p style="margin-top:12px;font-size:14.5px;color:rgba(255,255,255,.55);">Training and repetition are the only path to confidence. Confidence is the only path to consistent conversions.</p>
+            </div>
+          </div>
+
+          <div class="post-step">
+            <div class="post-step-num">3</div>
+            <div class="post-step-body">
+              <h4>Higher PVA &amp; Collections — Present What They Need</h4>
+              <p>Base care plan recommendations on <strong>what the patient actually needs</strong> — not what you think they'll accept, not what their insurance covers, and not what feels safe to present.</p>
+
+              <div class="post-pullquote" style="margin:16px 0 20px">
+                People pay for what they value.<br />
+                <strong>Your job is to show them the value.</strong>
+              </div>
+
+              <div class="post-highlight">
+                <h4>Revenue Expanding Strategies</h4>
+                <ul class="post-checklist" style="margin:0">
+                  <li><i class="fas fa-check-circle"></i> Add ancillary services: orthotics, nutrition, peptides, hormones, weight loss, DME.</li>
+                  <li><i class="fas fa-check-circle"></i> Move patients through <strong>all phases of care</strong> — initial/intensive → corrective → wellness.</li>
+                  <li><i class="fas fa-check-circle"></i> Never self-select out of a care recommendation before presenting it.</li>
+                </ul>
+              </div>
+              <p style="margin-top:12px;font-size:14.5px;color:rgba(255,255,255,.55);">Value presentation justifies the necessary care plan — and increases lifetime patient visits naturally.</p>
+            </div>
+          </div>
+
+          <div class="post-step">
+            <div class="post-step-num">4</div>
+            <div class="post-step-body">
+              <h4>Visit Compliance — Accountability from Day One</h4>
+              <p>Compliance also requires a <strong>high level of confront</strong>. Establish policies — including cancellation fees and make-up visit requirements — during the report of findings, not when a patient starts missing appointments.</p>
+              <div class="post-highlight" style="margin-top:12px">
+                <h4>Compliance System Components</h4>
+                <ul class="post-checklist" style="margin:0">
+                  <li><i class="fas fa-check-circle"></i> Fully schedule the entire treatment plan at the start — not week by week.</li>
+                  <li><i class="fas fa-check-circle"></i> Use Table Talk focused on <strong>function over feeling</strong> to prevent early dropoff.</li>
+                  <li><i class="fas fa-check-circle"></i> Assign front desk and rehab techs as accountability partners in the care journey.</li>
+                  <li><i class="fas fa-check-circle"></i> Ask: "What have you noticed since your last visit?" — not just "How do you feel?"</li>
+                </ul>
+              </div>
+              <p style="margin-top:12px;font-size:14.5px;color:rgba(255,255,255,.55);">Patients stop care when they "feel better." Accountability and clarity keep them on track for <em>actual results</em>.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="post-divider"></div>
+
+        <h2>Every Role Has a Lever to Pull</h2>
+
+        <div class="role-grid">
+          <div class="role-card">
+            <div class="role-card-icon"><i class="fas fa-bullhorn"></i></div>
+            <h5>Marketing / Owner</h5>
+            <p>Diversify beyond social media. Invest in print, digital, broadcast, and relationship-building with local professionals.</p>
+          </div>
+          <div class="role-card">
+            <div class="role-card-icon"><i class="fas fa-user-tie"></i></div>
+            <h5>Case Managers / Sales</h5>
+            <p>Use sales training, daily roleplay, and recorded audit reviews to ensure every vital piece of information reaches the patient.</p>
+          </div>
+          <div class="role-card">
+            <div class="role-card-icon"><i class="fas fa-user-md"></i></div>
+            <h5>Provider / Owner</h5>
+            <p>Present care plans based on clinical need — not perceived affordability. Add ancillary services where appropriate.</p>
+          </div>
+          <div class="role-card">
+            <div class="role-card-icon"><i class="fas fa-concierge-bell"></i></div>
+            <h5>Front Desk / Rehab Tech</h5>
+            <p>Act as the accountability partner. Schedule the full plan upfront and use function-focused table talk at every visit.</p>
+          </div>
+        </div>
+
+        <p><strong>Leadership happens at every touchpoint.</strong> The revenue lever you pull in the treatment room connects directly to what happens at the front desk — and vice versa.</p>
+
+        <div class="post-divider"></div>
+
+        <h2>The Culture Shift That Unlocks $1M+</h2>
+
+        <div class="post-pullquote">
+          The problem isn't the market.<br />
+          It's not the patients.<br />
+          It's the <strong>low ability to confront</strong> that lives inside most offices — and most leaders.
+        </div>
+
+        <p>When you install the four-lever system, here's what actually shifts:</p>
+
+        <div class="post-compare">
+          <div class="post-compare-col red">
+            <h5>Without the System</h5>
+            <ul>
+              <li><i class="fas fa-times" style="color:rgba(232,40,28,.6)"></i> Sporadic patient flow from one channel</li>
+              <li><i class="fas fa-times" style="color:rgba(232,40,28,.6)"></i> Fear-based care plan presentations</li>
+              <li><i class="fas fa-times" style="color:rgba(232,40,28,.6)"></i> Patients dropping off when symptoms ease</li>
+              <li><i class="fas fa-times" style="color:rgba(232,40,28,.6)"></i> Revenue plateau with no clear path up</li>
+            </ul>
+          </div>
+          <div class="post-compare-col green">
+            <h5>With the System</h5>
+            <ul>
+              <li><i class="fas fa-check" style="color:rgba(16,185,129,.7)"></i> Consistent new patient flow from multiple sources</li>
+              <li><i class="fas fa-check" style="color:rgba(16,185,129,.7)"></i> Confident, value-driven presentations</li>
+              <li><i class="fas fa-check" style="color:rgba(16,185,129,.7)"></i> Higher PVA and lifetime patient value</li>
+              <li><i class="fas fa-check" style="color:rgba(16,185,129,.7)"></i> Compounding revenue growth month over month</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="post-reflection">
+          <h4>Revenue Lever Audit — Ask Yourself</h4>
+          <ul>
+            <li>Are we acquiring new patients from more than two channels right now?</li>
+            <li>Does our team train on sales and case acceptance — or just clinical skills?</li>
+            <li>Are we presenting care plans based on what patients need, or what we <em>think</em> they'll accept?</li>
+            <li>Do we have a compliance policy in writing, presented at the report of findings?</li>
+          </ul>
+        </div>
+
+        <p>Revenue levers get stuck because of fear. They get unstuck through:</p>
+
+        <ul class="post-checklist">
+          <li><i class="fas fa-check-circle"></i> <strong>Training</strong> — equip the team with real sales and communication skills.</li>
+          <li><i class="fas fa-check-circle"></i> <strong>Repetition</strong> — drill daily until confidence replaces hesitation.</li>
+          <li><i class="fas fa-check-circle"></i> <strong>Confrontation</strong> — address what's uncomfortable before it becomes a revenue ceiling.</li>
+        </ul>
+
+        <div class="post-pullquote">
+          One system. Four levers. Every time.<br />
+          Because <strong>confidence gained through practice turns challenges into revenue.</strong>
+        </div>
+
+        <div class="post-cta-block">
+          <h3>Ready to Pull All Four Revenue Levers?</h3>
+          <p>Med Pro Dojo's programs are designed to install the sales training, compliance systems, and leadership frameworks that take practices from stuck to scaling — consistently.</p>
+          <div class="cta-links">
+            <a href="https://link.medprodojo.com/widget/booking/00SZ78V6CJfntwsghkMk" target="_blank" class="cta-primary">
+              <i class="fas fa-calendar-check"></i> Book a Discovery Call
+            </a>
+            <a href="programs.html" class="cta-ghost">
+              <i class="fas fa-graduation-cap"></i> Browse Programs
+            </a>
+            <a href="resources.html" class="cta-ghost">
+              <i class="fas fa-book-open"></i> Free Resources
+            </a>
+          </div>
+          <p style="margin:20px 0 0;font-size:12px;color:rgba(255,255,255,.3);">
+            📧 info@medprodojo.com &nbsp;|&nbsp; 📞 (833) 678-0800
+          </p>
+        </div>
+      `,
+      related: [
+        { href: 'blog-post.html?post=table-talk', img: 'images/blog-table-talk.jpg', cat: 'Patient Retention', title: 'How Simple Table Talk Transforms Patient Retention' },
+        { href: 'blog-post.html?post=defining-standards', img: 'images/blog-standards-tardiness.jpg', cat: 'Accountability', title: 'How Defining Standards Fixes the Problem of Tardiness' },
+        { href: 'blog-post.html?post=handing-them-a-manual', img: 'images/blog-grind-is-real.jpg', cat: 'Leadership', title: "Handing Them a Manual Isn't Leadership" }
+      ]
+    }
+
+    ,
+
+    /* ── POST 3 ─────────────────────────────── */
+    'defining-standards': {
+      title: "How Defining Standards Fixes the Problem of Tardiness in Healthcare",
+      subtitle: "The Leadership Skill Hiding in Every Team Member Encounter — and the 3-Step Structure That Changes Everything",
+      date: "March 2, 2026",
+      readTime: "3 min read",
+      image: "images/blog-standards-tardiness.jpg",
+      imageAlt: "The 3 Keys to Professionalism and Team Culture",
+      cats: ["Team Management", "Training", "Healthcare Management", "Accountability"],
+      html: `
+        <div class="post-pullquote">
+          <span class="pq-emoji">⏰</span> "Early is on time. On time is late. Late is unacceptable."
+        </div>
+
+        <p>Every time a team member is late, it's more than just a time issue.</p>
+
+        <p>It's an <strong>opportunity</strong>:</p>
+
+        <ul class="post-checklist">
+          <li><i class="fas fa-check-circle"></i> An opportunity to define professional standards.</li>
+          <li><i class="fas fa-check-circle"></i> An opportunity to build trust.</li>
+          <li><i class="fas fa-check-circle"></i> An opportunity to strengthen your culture.</li>
+        </ul>
+
+        <p>As Coach Natasha has shared in practice training: <em>one person's tardiness can eventually impact team morale and patient experience.</em> Every leader should address it early — before it becomes part of the culture. This isn't about control. It's about <strong>trust</strong>.</p>
+
+        <div class="post-divider"></div>
+
+        <h2>Why Standards Are Never "Optional"</h2>
+
+        <p>Ignoring tardiness sends a clear message: <strong>standards are optional.</strong></p>
+
+        <p>Team members will continue to struggle with punctuality if they don't understand:</p>
+
+        <ul class="post-checklist">
+          <li><i class="fas fa-question-circle"></i> What "on time" truly means in your practice.</li>
+          <li><i class="fas fa-question-circle"></i> Why punctuality matters for professionalism and patient care.</li>
+          <li><i class="fas fa-question-circle"></i> How being late impacts colleagues and patients.</li>
+        </ul>
+
+        <p>When standards are left unaddressed, practices unintentionally leave value on the table:</p>
+
+        <div class="post-highlight">
+          <h4>What Gets Left Behind</h4>
+          <ul class="post-checklist" style="margin:0">
+            <li><i class="fas fa-times-circle"></i> <strong>Morale</strong> — team members who are on time feel undervalued.</li>
+            <li><i class="fas fa-times-circle"></i> <strong>Patient experience</strong> — delays ripple through every appointment slot.</li>
+            <li><i class="fas fa-times-circle"></i> <strong>Trust</strong> — the unspoken contract between leader and team frays.</li>
+          </ul>
+        </div>
+
+        <p>Professional standards must be part of <strong>every role</strong> — defined, communicated, and upheld consistently.</p>
+
+        <div class="post-divider"></div>
+
+        <h2>The Simple 3-Step Structure That Changes Everything</h2>
+
+        <p>Here is a clear, repeatable framework any healthcare leader can use to fix tardiness — permanently.</p>
+
+        <div class="post-steps">
+          <div class="post-step">
+            <div class="post-step-num">1</div>
+            <div class="post-step-body">
+              <h4>Define the Standard Clearly</h4>
+              <p>Start by making sure "on time" is <strong>defined in writing</strong>. This belongs in the employee handbook, during onboarding, and in your policies folder. Clarify the difference between <em>arrival time</em> and <em>start time</em>.</p>
+              <div class="post-highlight" style="margin-top:12px">
+                <h4>Example Standard</h4>
+                <p style="color:rgba(255,255,255,.7);font-style:italic;font-size:15px;line-height:1.7;margin:0">
+                  "Early is on time. On time is late. Late is unacceptable."
+                </p>
+              </div>
+              <p style="margin-top:12px;font-size:14.5px;color:rgba(255,255,255,.55);">Definition creates clarity — and clarity prevents conflict.</p>
+            </div>
+          </div>
+
+          <div class="post-step">
+            <div class="post-step-num">2</div>
+            <div class="post-step-body">
+              <h4>Address It Early and Consistently</h4>
+              <p>Address tardiness patterns <strong>professionally, consistently, and without emotion</strong>. Ignoring early incidents allows the behavior to become normalized — and once it's part of the culture, it's exponentially harder to reverse.</p>
+              <div class="post-highlight" style="margin-top:12px">
+                <h4>Key Action</h4>
+                <p style="color:rgba(255,255,255,.7);font-size:15px;line-height:1.7;margin:0">
+                  Document every conversation about punctuality. Written records reinforce that the standard is real — and that the leader takes it seriously.
+                </p>
+              </div>
+              <p style="margin-top:12px;font-size:14.5px;color:rgba(255,255,255,.55);">Documentation and consistency reinforce the standard — and protect you legally if escalation is ever needed.</p>
+            </div>
+          </div>
+
+          <div class="post-step">
+            <div class="post-step-num">3</div>
+            <div class="post-step-body">
+              <h4>Tie Punctuality to Patient Care</h4>
+              <p>Reinforce that showing up on time is part of the <strong>role</strong> — not a suggestion. Make the impact tangible: patients feel the delay, team members carry the resentment, and leaders feel the burnout.</p>
+              <div class="post-highlight" style="margin-top:12px">
+                <h4>The Connection</h4>
+                <p style="color:rgba(255,255,255,.7);font-size:15px;line-height:1.7;margin:0">
+                  When tardiness affects patient flow, it's no longer a personal preference — it's a clinical standard. Framing it this way creates <strong>accountability without resentment</strong>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="post-divider"></div>
+
+        <h2>Real-World Application for Every Role</h2>
+
+        <div class="role-grid">
+          <div class="role-card">
+            <div class="role-card-icon"><i class="fas fa-clipboard-list"></i></div>
+            <h5>During Onboarding</h5>
+            <p>The punctuality standard must be in writing in the handbook and policies folder before day one. No ambiguity, no "well I didn't know."</p>
+          </div>
+          <div class="role-card">
+            <div class="role-card-icon"><i class="fas fa-tasks"></i></div>
+            <h5>For Accountability</h5>
+            <p>Set expectations for arrival readiness — not just physical presence. Being in the building is not the same as being ready to serve patients.</p>
+          </div>
+          <div class="role-card">
+            <div class="role-card-icon"><i class="fas fa-comments"></i></div>
+            <h5>For Communication</h5>
+            <p>Address patterns professionally and consistently — without blame or emotion. Lead the conversation with the standard, not the frustration.</p>
+          </div>
+        </div>
+
+        <p>Leadership happens at every touchpoint — including the moment a team member walks through the door two minutes late.</p>
+
+        <div class="post-divider"></div>
+
+        <h2>The Culture Shift Worth Making</h2>
+
+        <div class="post-pullquote">
+          Tardiness isn't a personality issue.<br />
+          It is a <strong>standards, communication, and leadership issue</strong>.
+        </div>
+
+        <p>When you install a clear punctuality standard, here's what you actually build:</p>
+
+        <ul class="post-checklist">
+          <li><i class="fas fa-check-circle"></i> <strong>Stronger culture</strong> — everyone knows what excellence looks like.</li>
+          <li><i class="fas fa-check-circle"></i> <strong>Clarity</strong> — expectations are never assumed; they are documented.</li>
+          <li><i class="fas fa-check-circle"></i> <strong>Consistency</strong> — the same standard applies to every team member, every time.</li>
+        </ul>
+
+        <p>And that creates something even more powerful: <strong>trust</strong>. Not through control — through clarity.</p>
+
+        <div class="post-reflection">
+          <h4>Leadership Reflection</h4>
+          <ul>
+            <li>Is "on time" clearly defined in writing in my practice right now?</li>
+            <li>Have I been consistent in addressing tardiness — or do I let it slide?</li>
+            <li>Do my team members understand how their punctuality affects patient care?</li>
+          </ul>
+        </div>
+
+        <p>Tardiness can be fixed — permanently — with three things:</p>
+
+        <div class="post-compare">
+          <div class="post-compare-col green">
+            <h5>The Fix</h5>
+            <ul>
+              <li><i class="fas fa-check" style="color:rgba(16,185,129,.7)"></i> <strong>Clarity</strong> — define it in writing</li>
+              <li><i class="fas fa-check" style="color:rgba(16,185,129,.7)"></i> <strong>Consistency</strong> — apply it every time</li>
+              <li><i class="fas fa-check" style="color:rgba(16,185,129,.7)"></i> <strong>Leadership</strong> — address it without emotion</li>
+            </ul>
+          </div>
+          <div class="post-compare-col red">
+            <h5>The Result</h5>
+            <ul>
+              <li><i class="fas fa-arrow-right" style="color:rgba(232,40,28,.7)"></i> Standards become second nature</li>
+              <li><i class="fas fa-arrow-right" style="color:rgba(232,40,28,.7)"></i> Culture becomes self-reinforcing</li>
+              <li><i class="fas fa-arrow-right" style="color:rgba(232,40,28,.7)"></i> Trust replaces resentment</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="post-pullquote">
+          One standard. One definition. Every time.<br />
+          Because standards become second nature — not stressful.
+        </div>
+
+        <div class="post-cta-block">
+          <h3>Ready to Build a Culture of Accountability?</h3>
+          <p>Med Pro Dojo helps healthcare practices define the standards, communication frameworks, and leadership systems that make professionalism a natural part of your team culture.</p>
+          <div class="cta-links">
+            <a href="https://link.medprodojo.com/widget/booking/00SZ78V6CJfntwsghkMk" target="_blank" class="cta-primary">
+              <i class="fas fa-calendar-check"></i> Book a Discovery Call
+            </a>
+            <a href="programs.html" class="cta-ghost">
+              <i class="fas fa-graduation-cap"></i> Browse Programs
+            </a>
+            <a href="resources.html" class="cta-ghost">
+              <i class="fas fa-book-open"></i> Free Resources
+            </a>
+          </div>
+          <p style="margin:20px 0 0;font-size:12px;color:rgba(255,255,255,.3);">
+            📧 info@medprodojo.com &nbsp;|&nbsp; 📞 (833) 678-0800
+          </p>
+        </div>
+      `,
+      related: [
+        { href: 'blog-post.html?post=handing-them-a-manual', img: 'images/blog-grind-is-real.jpg', cat: 'Leadership', title: "Handing Them a Manual Isn't Leadership" },
+        { href: 'blog-post.html?post=table-talk', img: 'images/blog-table-talk.jpg', cat: 'Patient Retention', title: 'How Simple Table Talk Transforms Patient Retention' },
+        { href: 'blog.html', img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=70', cat: 'Leadership', title: 'Correcting vs. Disciplining: Coaching Your Team the Right Way' }
+      ]
+    }
+
+  }; // end POSTS
+
+  // ─────────────────────────────────────────────
+  //  ROUTER — read ?post= and render
+  // ─────────────────────────────────────────────
+  (function() {
+    const params = new URLSearchParams(window.location.search);
+    const slug   = params.get('post') || 'handing-them-a-manual';
+    const post   = POSTS[slug] || POSTS['handing-them-a-manual'];
+
+    // Update <title>
+    document.title = post.title + ' — Med Pro Dojo Blog';
+
+    // ── HERO ──
+    const heroInner = document.getElementById('postHeroInner');
+
+    // Category pills
+    const catsHTML = post.cats.map(c => `<span class="post-cat">${c}</span>`).join('');
+
+    heroInner.innerHTML = `
+      <a href="blog.html" class="post-back"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+      <div class="post-cats">${catsHTML}</div>
+      <h1>${post.title}</h1>
+      <p class="post-subtitle">${post.subtitle}</p>
+      <div class="post-meta">
+        <div class="post-author-wrap">
+          <img src="images/natasha-headshot.jpg" alt="Natasha Saavedra" class="post-author-avatar" />
+          <div>
+            <div class="post-author-name">Natasha Saavedra</div>
+            <div class="post-author-title">Founder &amp; CEO, Med Pro Dojo</div>
+          </div>
+        </div>
+        <div class="post-meta-divider"></div>
+        <div class="post-meta-item"><i class="fas fa-calendar"></i> ${post.date}</div>
+        <div class="post-meta-divider"></div>
+        <div class="post-meta-item"><i class="fas fa-clock"></i> ${post.readTime}</div>
+      </div>
+    `;
+
+    // Hero image — insert after the section's inner div
+    const section = document.getElementById('postHero');
+    const imgEl   = document.createElement('img');
+    imgEl.src   = post.image;
+    imgEl.alt   = post.imageAlt;
+    imgEl.className = 'post-hero-img';
+    // insert before the overlay
+    const overlay = section.querySelector('.post-hero-img-overlay');
+    section.insertBefore(imgEl, overlay);
+
+    // ── BODY ──
+    document.getElementById('postBody').innerHTML = post.html;
+
+    // ── RELATED POSTS ──
+    const relHTML = post.related.map(r => `
+      <a href="${r.href}" class="related-card">
+        <div class="related-card-img" style="background-image:url('${r.img}')"></div>
+        <div class="related-card-body">
+          <span>${r.cat}</span>
+          <h4>${r.title}</h4>
+        </div>
+      </a>
+    `).join('');
+    document.getElementById('relatedGrid').innerHTML = relHTML;
+  })();
+  </script>
+</body>
+</html>
