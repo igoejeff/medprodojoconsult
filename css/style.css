@@ -217,17 +217,49 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 }
 /* Official PNG logo — navbar */
 .logo-img-nav {
-  height: 80px;
+  height: 72px;
   width: auto;
   display: block;
   flex-shrink: 0;
   transition: opacity 0.25s, transform 0.25s var(--spring);
-  max-height: 80px;
-  mix-blend-mode: multiply; /* removes white bg on light navbar */
+  max-height: 72px;
+  /* Desktop light navbar: multiply blends white bg away */
+  mix-blend-mode: multiply;
+  -webkit-mix-blend-mode: multiply;
 }
 .nav-logo:hover .logo-img-nav {
   opacity: 0.88;
   transform: scale(1.03);
+}
+/* Mobile: dark navbar + invert the color logo to white silhouette */
+@media (max-width: 768px) {
+  .navbar {
+    background: #0f0f0f !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+    border-bottom: 1px solid rgba(255,255,255,0.10) !important;
+  }
+  .navbar.scrolled {
+    background: #0a0a0a !important;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.5) !important;
+  }
+  .logo-img-nav {
+    /* Invert to white — works on every browser including iOS Safari */
+    mix-blend-mode: normal !important;
+    -webkit-mix-blend-mode: normal !important;
+    filter: brightness(0) invert(1);
+    -webkit-filter: brightness(0) invert(1);
+  }
+  /* Dropdown nav menu: dark background */
+  .nav-links {
+    background: rgba(15,15,15,0.98) !important;
+    border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+  }
+  .nav-link { color: rgba(255,255,255,0.80) !important; }
+  .nav-link:hover, .nav-link:active { color: #fff !important; background: rgba(255,255,255,0.06) !important; }
+  .nav-link.active { color: var(--red) !important; background: rgba(232,40,28,0.12) !important; }
+  /* Burger hamburger lines: white on dark background */
+  .burger span, .hamburger span { background: #fff !important; }
 }
 
 /* Footer logo — same real logo as navbar, blended onto dark bg */
@@ -332,7 +364,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .hero-img {
   width: 100%; height: 100%;
   object-fit: cover;
-  object-position: right 25%;
+  object-position: center 20%;
   transform: scale(1.04);
   transition: transform 8s ease-out;
 }
@@ -3230,20 +3262,27 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
     position: absolute;
     top: var(--nav-h);
     left: 0; right: 0;
-    background: rgba(255,255,255,0.97);
-    backdrop-filter: blur(20px);
+    background: #0f0f0f;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
     padding: 12px 20px 20px;
     flex-direction: column;
     gap: 2px;
-    border-bottom: 1px solid var(--gray-2);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
     z-index: 100;
   }
   .nav-links.open { display: flex; }
-  .nav-link { padding: 14px 16px; font-size: 15px; }
+  .nav-link { padding: 14px 16px; font-size: 15px; color: rgba(255,255,255,0.80); }
+  .nav-link:hover { color: #fff !important; background: rgba(255,255,255,0.06) !important; }
+  .nav-link.active { color: var(--red) !important; background: rgba(232,40,28,0.12) !important; }
 
   .burger { display: flex; }
+  /* Hide CTA buttons in both nav-ctas and nav-actions wrappers */
   .nav-btn-ghost { display: none; }
+  .nav-btn-red { display: none; }
+  .nav-ctas .nav-btn-ghost { display: none; }
+  .nav-ctas .nav-btn-red { display: none; }
 
   .hero-h1 { font-size: 2.2rem; }
   .hero-sub { font-size: 15px; }
