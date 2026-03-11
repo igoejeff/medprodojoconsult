@@ -3371,20 +3371,10 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
     padding: 20px 16px;
   }
   .gsd-lines { display: none; }
-  .gsd-hub {
-    position: static;
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 8px;
-  }
-  .gsd-hub-ring { background: #0d0d0d; }
-  .gsd-hub-logo {
-    width: 70px;
-    height: 70px;
-    mix-blend-mode: normal;
-    filter: brightness(0) invert(1);
-    -webkit-filter: brightness(0) invert(1);
-  }
+  .gsd-hub { display: none; }
+  .gsd-hub-ring { display: none; }
+  .gsd-hub-outer-glow { display: none; }
+  .gsd-hub-logo { display: none; }
   .gsd-card {
     position: static;
     width: 100%;
@@ -3472,16 +3462,13 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   /* ── Natasha section tighten ── */
   .natasha-hero-row { gap: 28px; }
   .natasha-creds { flex-wrap: wrap; gap: 6px; }
-  /* Force photo frame to never overflow viewport */
   .natasha-photo-frame {
-    max-width: calc(100vw - 40px) !important;
-    height: 280px !important;
-    margin: 0 auto !important;
+    width: calc(100% - 40px) !important;
+    max-width: 340px !important;
+    height: 260px !important;
     border-radius: 16px !important;
+    margin: 0 auto !important;
+    overflow: hidden !important;
   }
-  .natasha-photo-wrap {
-    width: 100%;
-    padding: 0 20px;
-    box-sizing: border-box;
-  }
+  .natasha-photo-wrap { width: 100%; }
 }

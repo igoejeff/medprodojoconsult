@@ -489,30 +489,28 @@
       .natasha-stat { flex: 0 0 calc(50% - 14px); }
     }
     @media (max-width: 580px) {
-      .natasha-section { padding: 60px 0 50px; overflow: visible; }
+      .natasha-section { padding: 60px 0 50px; }
       .natasha-intro-label { margin-bottom: 36px; }
       .natasha-expertise-row { grid-template-columns: 1fr; }
       .natasha-stat { flex: 0 0 100%; }
       .natasha-team-placeholder { padding: 36px 20px; }
-      .natasha-photo-wrap { width: 100%; padding: 0 20px; box-sizing: border-box; }
+      /* Simple responsive photo — no oval, no overflow */
+      .natasha-photo-wrap { width: 100%; }
       .natasha-photo-frame {
-        width: 100% !important;
-        max-width: 100% !important;
-        height: 280px !important;
-        margin: 0 auto;
+        width: calc(100% - 40px);
+        max-width: 340px;
+        height: 260px;
         border-radius: 16px;
+        margin: 0 auto;
+        overflow: hidden;
       }
       .natasha-photo {
         position: absolute;
-        width: 100% !important;
-        height: 100% !important;
-        left: 0 !important;
-        top: 0 !important;
+        inset: 0;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
         object-position: center top;
-      }
-      .natasha-hero-row {
-        gap: 28px;
       }
     }
   </style>
